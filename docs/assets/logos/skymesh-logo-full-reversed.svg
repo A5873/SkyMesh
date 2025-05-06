@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- SkyMesh Full Reversed Logo (for dark backgrounds) -->
+  
+  <!-- Background (for preview purposes, remove in production if not needed) -->
+  <rect width="600" height="200" fill="#0F1C2E" opacity="0" />
+  
+  <!-- Logomark - Orbital Mesh Network -->
+  <g transform="translate(150, 80)">
+    <!-- Orbital Rings -->
+    <ellipse cx="100" cy="0" rx="80" ry="50" fill="none" stroke="#FFFFFF" stroke-width="2" />
+    <ellipse cx="100" cy="0" rx="60" ry="30" fill="none" stroke="#FFFFFF" stroke-width="2" />
+    
+    <!-- Mesh Nodes and Connections -->
+    <!-- Central Node -->
+    <circle cx="100" cy="0" r="8" fill="#FFFFFF" opacity="0.3" />
+    <circle cx="100" cy="0" r="5" fill="#FFFFFF" />
+    
+    <!-- Orbital Nodes -->
+    <circle cx="160" cy="20" r="6" fill="#FFFFFF" />
+    <circle cx="40" cy="-20" r="6" fill="#FFFFFF" />
+    <circle cx="140" cy="-30" r="6" fill="#FFFFFF" />
+    <circle cx="60" cy="30" r="6" fill="#FFFFFF" />
+    <circle cx="180" cy="-5" r="6" fill="#FFFFFF" />
+    
+    <!-- Star Node (special highlight) -->
+    <path d="M90,-40 L93,-30 L103,-30 L95,-25 L98,-15 L90,-20 L82,-15 L85,-25 L77,-30 L87,-30 Z" fill="#FFC107" />
+    
+    <!-- Connection Lines -->
+    <line x1="100" y1="0" x2="160" y2="20" stroke="#FFFFFF" stroke-width="1.5" />
+    <line x1="100" y1="0" x2="40" y2="-20" stroke="#FFFFFF" stroke-width="1.5" />
+    <line x1="100" y1="0" x2="140" y2="-30" stroke="#FFFFFF" stroke-width="1.5" />
+    <line x1="100" y1="0" x2="60" y2="30" stroke="#FFFFFF" stroke-width="1.5" />
+    <line x1="100" y1="0" x2="180" y2="-5" stroke="#FFFFFF" stroke-width="1.5" />
+    <line x1="100" y1="0" x2="90" y2="-40" stroke="#FFFFFF" stroke-width="1.5" />
+    
+    <line x1="160" y1="20" x2="180" y2="-5" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="2,2" />
+    <line x1="40" y1="-20" x2="90" y2="-40" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="2,2" />
+    <line x1="140" y1="-30" x2="90" y2="-40" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="2,2" />
+  </g>
+  
+  <!-- Wordmark - "SKYMESH" -->
+  <g transform="translate(150, 140)">
+    <!-- Using custom paths for the "SKYMESH" text to match Space Grotesk font -->
+    <!-- S -->
+    <path d="M0,0 C0,-10 20,-10 20,0 C20,5 10,7 10,10 C10,13 20,13 20,20 L0,20 C0,10 10,10 10,7 C10,4 0,4 0,0Z" fill="#FFFFFF" />
+    <!-- K -->
+    <path d="M30,0 L30,20 L25,20 L25,12 L23,12 L20,20 L15,20 L19,10 L15,0 L20,0 L23,8 L25,8 L25,0 Z" fill="#FFFFFF" />
+    <!-- Y -->
+    <path d="M40,0 L45,0 L47.5,5 L50,0 L55,0 L50,10 L50,20 L45,20 L45,10 Z" fill="#FFFFFF" />
+    <!-- M -->
+    <path d="M60,0 L65,0 L65,20 L60,20 L60,5 L57.5,10 L55,5 L55,20 L50,20 L50,0 L55,0 L57.5,5 Z" fill="#FFFFFF" />
+    <!-- E -->
+    <path d="M70,0 L85,0 L85,5 L75,5 L75,7.5 L85,7.5 L85,12.5 L75,12.5 L75,15 L85,15 L85,20 L70,20 Z" fill="#FFFFFF" />
+    <!-- S -->
+    <path d="M90,0 C90,-10 110,-10 110,0 C110,5 100,7 100,10 C100,13 110,13 110,20 L90,20 C90,10 100,10 100,7 C100,4 90,4 90,0Z" fill="#FFFFFF" />
+    <!-- H -->
+    <path d="M115,0 L120,0 L120,7.5 L125,7.5 L125,0 L130,0 L130,20 L125,20 L125,12.5 L120,12.5 L120,20 L115,20 Z" fill="#FFFFFF" />
+  </g>
+</svg>
+
