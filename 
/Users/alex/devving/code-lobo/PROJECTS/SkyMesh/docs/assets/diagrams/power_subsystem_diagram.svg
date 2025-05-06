@@ -1,0 +1,81 @@
+  <!-- Main System Layout -->
+  <g transform="translate(50, 90)">
+    <!-- Overall System Boundary -->
+    <!-- Module Sections -->
+    <rect x="10" y="10" width="320" height="110" rx="3" ry="3" class="solar-section module-section" />
+    <rect x="10" y="130" width="320" height="110" rx="3" ry="3" class="battery-section module-section" />
+    <rect x="10" y="250" width="320" height="110" rx="3" ry="3" class="distribution-section module-section" />
+    <rect x="340" y="10" width="350" height="350" rx="3" ry="3" class="monitoring-section module-section" />
+    <!-- Power Flow Connections -->
+    <!-- Sensor and Control Lines -->
+    <path d="M515,95 L480,70" class="power-flow control-flow" />
+    <path d="M515,95 L480,120" class="power-flow control-flow" />
+    <path d="M150,190 L180,220" class="power-flow control-flow" />
+    <path d="M290,190 L320,170" class="power-flow control-flow" />
+
+    <!-- Status Monitoring -->
+    <path d="M515,150 L550,120" class="power-flow control-flow" />
+    <path d="M515,220 L550,250" class="power-flow control-flow" />
+
+    <!-- System Mode Indicators -->
+    <g transform="translate(600, 170)">
+      <circle cx="0" cy="0" r="8" fill="#4CAF50" />
+      <text x="15" y="4" class="smallLabel">Normal Mode</text>
+      
+      <circle cx="0" cy="25" r="8" fill="#FFC107" />
+      <text x="15" y="29" class="smallLabel">Low Power</text>
+      
+      <circle cx="0" cy="50" r="8" fill="#F44336" />
+      <text x="15" y="54" class="smallLabel">Critical</text>
+    </g>
+    
+    <path d="M515,95 Q515,120 480,120 L400,120" class="power-flow control-flow" />
+    <path d="M150,190 Q150,220 180,220 L400,220" class="power-flow control-flow" />
+    <path d="M290,190 Q290,170 320,170 L400,170" class="power-flow control-flow" />
+
+    <!-- Power Monitoring Feedback -->
+    <path d="M270,310 Q270,340 300,340 L400,340" class="po    
+    <!-- Complete Sensor Connections -->
+    <path d="M270,310 L340,220" class="power-flow control-flow" />
+    <path d="M270,295 L340,200" class="power-flow control-flow" />
+    <text x="305" y="255" class="microLabel" text-anchor="middle">Power Monitoring</text>
+    
+    <!-- Monitoring Feedback -->
+    <path d="M515,150 C515,120 480,100 450,100" class="power-flow control-flow" />
+    <path d="M515,220 C515,250 480,270 450,270" class="power-flow control-flow" />
+    <path d="M515,150 C550,150 580,100 550,50 C520,0 450,20 430,50 C410,80 440,90 515,90" class="connection control-flow" />
+    <text x="515" y="40" class="microLabel" text-anchor="middle">System Monitoring</text>
+    
+    <!-- Redundant power paths -->
+    <path d="M10,310 L-10,310 C-30,310 -30,190 10,190" class="connection primary-flow" stroke-dasharray="5,3" />
+    <text x="-20" y="250" class="microLabel" text-anchor="middle" transform="rotate(-90, -20, 250)">Backup Power Path</text>
+  
+  <!-- Main System Layout -->
+  <g transform="translate(50, 90)">
+    <!-- Overall System Boundary -->
+    <!-- Module Sections -->
+    <rect x="10" y="10" width="320" height="110" rx="3" ry="3" class="solar-section module-section" />
+    <rect x="10" y="130" width="320" height="110" rx="3" ry="3" class="battery-section module-section" />
+    <rect x="10" y="250" width="320" height="110" rx="3" ry="3" class="distribution-section module-section" />
+    <rect x="340" y="10" width="350" height="350" rx="3" ry="3" class="monitoring-section module-section" />
+    
+    <!-- Section Labels -->
+    <text x="170" y="30" class="label" text-anchor="middle">Power Generation</text>
+    <text x="170" y="150" class="label" text-anchor="middle">Power Storage</text>
+    <text x="170" y="270" class="label" text-anchor="middle">Power Distribution</text>
+    <text x="515" y="30" class="label" text-anchor="middle">Power Monitoring and Control</text>
+    
+    <!-- Sensor Connections -->
+    <path d="M400,95 L515,95" class="connection control-flow" />
+    <path d="M150,190 L345,95" class="connection control-flow" />
+    <path d="M290,190 L400,95" class="connection control-flow" />
+    
+    <!-- MCU to Mode Controller -->
+    <path d="M515,185 L515,240" class="connection control-flow" />
+    
+    <!-- Battery to Protection Circuit -->
+    <path d="M70,190 L30,290" class="power-flow primary-flow" />
+    
+    <!-- PDU to Regulators -->
+    <path d="M170,295 L200,295" class="power-flow primary-flow" />
+    <path d="M170,325 L200,325" class="power-flow primary-flow" />

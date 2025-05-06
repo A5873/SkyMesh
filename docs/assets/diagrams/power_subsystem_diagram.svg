@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>SkyMesh Power Subsystem Architecture</title>
+  
+  <!-- Styles -->
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 14px; font-style: italic; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; }
+    .smallLabel { font-family: Arial, sans-serif; font-size: 10px; }
+    .microLabel { font-family: Arial, sans-serif; font-size: 8px; }
+    .annotation { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; font-style: italic; }
+    
+    .system-box { fill: white; stroke: #333333; stroke-width: 1.5; }
+    .component-box { fill: white; stroke-width: 1; }
+    
+    .solar-component { stroke: #FFC107; fill-opacity: 0.2; fill: #FFC107; }
+    .battery-component { stroke: #0F1C2E; fill-opacity: 0.2; fill: #0F1C2E; }
+    .distribution-component { stroke: #1E88E5; fill-opacity: 0.2; fill: #1E88E5; }
+    .monitoring-component { stroke: #7E57C2; fill-opacity: 0.2; fill: #7E57C2; }
+    
+    .power-flow { stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .primary-flow { stroke: #0F1C2E; }
+    .secondary-flow { stroke: #1E88E5; stroke-dasharray: 4,2; }
+    .control-flow { stroke: #7E57C2; stroke-dasharray: 1,1; }
+    
+    .module-section { opacity: 0.1; stroke-width: 1; }
+    .solar-section { fill: #FFC107; stroke: #FFC107; }
+    .battery-section { fill: #0F1C2E; stroke: #0F1C2E; }
+    .distribution-section { fill: #1E88E5; stroke: #1E88E5; }
+    .monitoring-section { fill: #7E57C2; stroke: #7E57C2; }
+    
+    .spec-table { fill: none; stroke: #cccccc; }
+    .spec-header { font-weight: bold; font-size: 10px; }
+    .spec-row { font-size: 9px; }
+    
+    .power-budget-bar { height: 18px; }
+    .budget-label { font-size: 9px; }
+  </style>
+  
+  <!-- Arrow Marker Definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto">
+      <polygon points="0 0, 5 1.75, 0 3.5" />
+    </marker>
+  </defs>
+  
+  <!-- Title and Information -->
+  <g transform="translate(400, 30)" text-anchor="middle">
+    <text class="title">SkyMesh Power Subsystem Architecture</text>
+    <text class="subtitle" y="25">60 Wh Capacity | 30W Peak Generation | 3U CubeSat Form Factor</text>
+  </g>
+  
+  <!-- Main System Layout -->
+  <g transform="translate(50, 90)">
+    <!-- Overall System Boundary -->
+    <!-- Sensor Connections -->
+    <path d="M400,95 L515,95" class="connection control-flow" />
+    <path d="M150,190 L345,95" class="connection control-flow" />
+    <path d="M290,190 L400,95" class="connection control-flow" />
+    
+    <!-- MCU to Mode Controller -->
+    <path d="M515,185 L515,240" class="connection control-flow" />
+    
+    <!-- Battery to Protection Circuit -->
+    <path d="M70,190 L30,290" class="power-flow prima    <!-- PDU to Regulators -->
+    <path d="M170,295 L200,295" class="power-flow primary-flow" />
+    <path d="M170,325 L200,325" class="power-flow primary-flow" />
+    
+    <!-- Complete Sensor Connections -->
+    <path d="M270,310 L340,220" class="power-flow control-flow" />
+    <path d="M270,295 L340,200" class="power-flow control-flow" />
+    <text x="305" y="255" class="microLabel" text-anchor="middle">Power Monitoring</text>
+    <!-- Monitoring Feedback -->
+    <path d="M515,150 C515,120 480,100 450,100" class="power-flow control-flow" />
+    <path d="M515,220 C515,250 480,270 450,270" class="power-flow control-flow" />
+    <path d="M515,150 C550,150 580,100 550,50 C520,0 450,20 430,50 C410,80 440,90 515,90" class="connection control-flow" />
+    <text x="515" y="40" class="microLabel" text-anchor="middle">System Monitoring</text>
+    
+    <!-- Redundant power paths -->
+    <path d="M10,310 L-10,310 C-30,310 -30,190 10,190" class="connection primary-flow" stroke-dasharray="5,3" />
+    <text x="-20" y="250" class="microLabel" text-anchor="middle" transform="rotate(-90, -20, 250)">Backup Power Path</text>
+    
+    <!-- PDU to Regulators -->
+    <path d="M170,295 L200,295" class="power-flow primary-flow" />
+    <path d="M170,325 L200,325" class="power-flow primary-flow" />
+    
+    <!-- Power Flow Connections -->
+    <!-- Sensor and Control Lines -->
+    <path d="M515,95 L480,70" class="power-flow control-flow" />
+    <path d="M515,95 L480,120" class="power-flow control-flow" />
+    <path d="M150,190 L180,220" class="power-flow control-flow" />
+    <path d="M290,190 L320,170" class="power-flow control-flow" />
+
+    <!-- Status Monitoring -->
+    <path d="M515,150 L550,120" class="power-flow control-flow" />
+    <path d="M515,220 L550,250" class="power-flow control-flow" />
+
+    <!-- System Mode Indicators -->
+    <g transform="translate(600, 170)">
+      <circle cx="0" cy="0" r="8" fill="#4CAF50" />
+      <text x="15" y="4" class="smallLabel">Normal Mode</text>
+      
+      <circle cx="0" cy="25" r="8" fill="#FFC107" />
+      <text x="15" y="29" class="smallLabel">Low Power</text>
+      
+      <circle cx="0" cy="50" r="8" fill="#F44336" />
+      <text x="15" y="54" class="smallLabel">Critical</text>
+    </g>
+    <path d="M515,95 Q515,120 480,120 L400,120" class="power-flow control-flow" />
+    <path d="M150,190 Q150,220 180,220 L400,220" class="power-flow control-flow" />
+    <path d="M290,190 Q290,170 320,170 L400,170" class="power-flow control-flow" />
+
+    <!-- Power Monitoring Feedback -->
+    <path d="M270,310 Q270,340 300,340 L400,340" class="power-flow control-flow" />
+    <path d="M270,295 Q270,320 300,320 L400,320" class="power-flow control-flow" />
+    <text x="335" y="330" class="microLabel" text-anchor="middle">Power Distribution Monitoring</text>
+
+    <!-- System Status Indicators -->
+    <path d="M515,150 Q550,150 550,120 L580,120" class="power-flow control-flow" />
+    <path d="M515,220 Q550,220 550,250 L580,250" class="power-flow control-flow" />
+    <text x="565" y="135" class="microLabel" text-anchor="middle">System Status</text>
+      <circle cx="0" cy="0" r="8" fill="#4CAF50" />
+      <text x="15" y="4" class="smallLabel" text-anchor="start">Normal</text>
+      
+      <circle cx="0" cy="20" r="8" fill="#FFC107" />
+      <text x="15" y="24" class="smallLabel" text-anchor="start">Low Power</text>
+      
+      <circle cx="0" cy="40" r="8" fill="#F44336" />
+      <text x="15" y="44" class="smallLabel" text-anchor="start">Critical</text>
+    </g>
+  </g>
+  
+  <!-- Power Budget Analysis -->
+  <g transform="translate(50, 490)">
+    <rect x="0" y="0" width="700" height="90" fill="white" stroke="#cccccc" stroke-width="1" />
+    <text x="350" y="20" class="label" text-anchor="middle" font-weight="bold">Power Budget Analysis</text>
+    
+    <!-- Column Headers -->
+    <text x="100" y="40" class="smallLabel" text-anchor="middle">Subsystem</text>
+    <text x="250" y="40" class="smallLabel" text-anchor="middle">Peak Power (W)</text>
+    <text x="400" y="40" class="smallLabel" text-anchor="middle">Average Power (W)</text>
+    <text x="550" y="40" class="smallLabel" text-anchor="middle">Duty Cycle (%)</text>
+    
+    <!-- Data Rows -->
+    <text x="100" y="60" class="smallLabel" text-anchor="middle">OBC</text>
+    <text x="250" y="60" class="smallLabel" text-anchor="middle">3.5</text>
+    <text x="400" y="60" class="smallLabel" text-anchor="middle">2.0</text>
+    <text x="550" y="60" class="smallLabel" text-anchor="middle">100</text>
+    
+    <text x="100" y="75" class="smallLabel" text-anchor="middle">Communications</text>
+    <text x="250" y="75" class="smallLabel" text-anchor="middle">8.0</text>
+    <text x="400" y="75" class="smallLabel" text-anchor="middle">2.5</text>
+    <text x="550" y="75" class="smallLabel" text-anchor="middle">30</text>
+    
+    <!-- Total Row -->
+    <line x1="50" y1="80" x2="650" y2="80" stroke="#cccccc" stroke-width="0.5" />
+    <text x="100" y="90" class="smallLabel" text-anchor="middle" font-weight="bold">Total System</text>
+    <text x="250" y="90" class="smallLabel" text-anchor="middle" font-weight="bold">21.5</text>
+    <text x="400" y="90" class="smallLabel" text-anchor="middle" font-weight="bold">7.8</text>
+    <text x="550" y="90" class="smallLabel" text-anchor="middle">-</text>
+  </g>
+  
+  <!-- System Specifications -->
+  <g transform="translate(400, 520)">
+    <rect x="100" y="90" width="250" height="65" class="spec-table" />
+    <line x1="100" y1="105" x2="350" y2="105" stroke="#cccccc" />
+    <text x="225" y="100" class="spec-header" text-anchor="middle">POWER SYSTEM SPECIFICATIONS</text>
+    
+    <text x="105" y="120" class="spec-row">Peak Power Generation:</text>
+    <text x="345" y="120" class="spec-row" text-anchor="end">30W (Full Sun)</text>
+    
+    <text x="105" y="135" class="spec-row">Battery Capacity:</text>
+    <text x="345" y="135" class="spec-row" text-anchor="end">60 Wh (4S2P 18650 Li-ion)</text>
+    
+    <text x="105" y="150" class="spec-row">System Efficiency:</text>
+    <text x="345" y="150" class="spec-row" text-anchor="end">85% End-to-End</text>
+  </g>
+  
+  <!-- Operational Modes -->
+  <g transform="translate(50, 520)">
+    <rect x="0" y="90" width="250" height="65" class="spec-table" />
+    <line x1="0" y1="105" x2="250" y2="105" stroke="#cccccc" />
+    <text x="125" y="100" class="spec-header" text-anchor="middle">OPERATIONAL MODES</text>
+    
+    <text x="5" y="120" class="spec-row">Normal Operations:</text>
+    <text x="245" y="120" class="spec-row" text-anchor="end">7.8W Average</text>
+    
+    <text x="5" y="135" class="spec-row">Low Power Mode:</text>
+    <text x="245" y="135" class="spec-row" text-anchor="end">3.2W Average</text>
+    
+    <text x="5" y="150" class="spec-row">Survival Mode:</text>
+    <text x="245" y="150" class="spec-row" text-anchor="end">1.5W Minimum</text>
+  </g>
+  
+  <!-- Safety Mechanisms -->
+  <g transform="translate(550, 170)">
+    <rect x="0" y="200" width="150" height="90" rx="3" ry="3" class="component-box safety-component" fill="#F44336" fill-opacity="0.1" stroke="#F44336" />
+    <text x="75" y="220" class="smallLabel" text-anchor="middle" font-weight="bold">Safety Mechanisms</text>
+    
+    <text x="10" y="240" class="smallLabel">• Overcurrent Protection</text>
+    <text x="10" y="255" class="smallLabel">• Thermal Cutoffs</text>
+    <text x="10" y="270" class="smallLabel">• Cell Balancing</text>
+    <text x="10" y="285" class="smallLabel">• Watchdog Failsafes</text>
+  </g>
+  
+  <!-- Connection Legend -->
+  <g transform="translate(400, 520)">
+    <rect x="-250" y="165" width="350" height="65" fill="white" stroke="#cccccc" stroke-width="1" />
+    <text x="-75" y="185" class="smallLabel" text-anchor="middle" font-weight="bold">Connection Types</text>
+    
+    <line x1="-230" y1="200" x2="-180" y2="200" class="power-flow primary-flow" />
+    <text x="-160" y="204" class="microLabel" text-anchor="start">Primary Power Path</text>
+    
+    <line x1="-230" y1="220" x2="-180" y2="220" class="power-flow secondary-flow" />
+    <text x="-160" y="224" class="microLabel" text-anchor="start">Secondary Power Path</text>
+    
+    <line x1="-80" y1="200" x2="-30" y2="200" class="connection control-flow" />
+    <text x="-10" y="204" class="microLabel" text-anchor="start">Control Signal</text>
+    
+    <line x1="-80" y1="220" x2="-30" y2="220" stroke="#F44336" stroke-width="1.5" stroke-dasharray="2,2" />
+    <text x="-10" y="224" class="microLabel" text-anchor="start">Safety Mechanism</text>
+  </g>
+  
+  <!-- Footer -->
+  <g transform="translate(400, 598)" text-anchor="middle">
+    <text class="smallLabel">SkyMesh Power Subsystem | 60 Wh Capacity | 30W Peak Generation | 2-3 Year Design Life</text>
+  </g>
+    <rect x="10" y="130" width="320" height="110" rx="3" ry="3" class="battery-section module-section" />
+    <rect x="10" y="250" width="320" height="110" rx="3" ry="3" class="distribution-section module-section" />
+    <rect x="340" y="10" width="350" height="350" rx="3" ry="3" class="monitoring-section module-section" />
+    
+    <!-- Section Labels -->
+    <text x="170" y="30" class="label" text-anchor="middle">Power Generation</text>
+    <text x="170" y="150" class="label" text-anchor="middle">Power Storage</text>
+    <text x="170" y="270" class="label" text-anchor="middle">Power Distribution</text>
+    <text x="515" y="30" class="label" text-anchor="middle">Power Monitoring and Control</text>
+    
+    <!-- 1. Power Generation Components -->
+    <g transform="translate(70, 70)">
+      <!-- Solar Panel Arrays (4 deployable) -->
+      <g transform="translate(-40, 0)">
+        <rect x="-25" y="-20" width="50" height="40" class="component-box solar-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Solar</text>
+        <text x="0" y="-5" class="smallLabel" text-anchor="middle">Panel 1</text>
+      </g>
+      
+      <g transform="translate(40, 0)">
+        <rect x="-25" y="-20" width="50" height="40" class="component-box solar-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Solar</text>
+        <text x="0" y="-5" class="smallLabel" text-anchor="middle">Panel 2</text>
+      </g>
+      
+      <g transform="translate(120, 0)">
+        <rect x="-25" y="-20" width="50" height="40" class="component-box solar-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Solar</text>
+        <text x="0" y="-5" class="smallLabel" text-anchor="middle">Panel 3</text>
+      </g>
+      
+      <g transform="translate(200, 0)">
+        <rect x="-25" y="-20" width="50" height="40" class="component-box solar-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Solar</text>
+        <text x="0" y="-5" class="smallLabel" text-anchor="middle">Panel 4</text>
+      </g>
+      
+      <!-- MPPT Controller -->
+      <g transform="translate(80, 50)">
+        <rect x="-60" y="-15" width="120" height="30" class="component-box solar-component" />
+        <text x="0" y="5" class="label" text-anchor="middle">MPPT Controller</text>
+        
+        <!-- MPPT Specifications -->
+        <text x="-80" y="-5" class="annotation" text-anchor="end">Efficiency:</text>
+        <text x="-85" y="5" class="smallLabel" text-anchor="end">97%</text>
+        
+        <text x="80" y="-5" class="annotation" text-anchor="start">Input:</text>
+        <text x="85" y="5" class="smallLabel" text-anchor="start">2-5V</text>
+      </g>
+    </g>
+    
+    <!-- 2. Power Storage Components -->
+    <g transform="translate(70, 190)">
+      <!-- Battery Pack -->
+      <g transform="translate(80, 0)">
+        <rect x="-100" y="-25" width="200" height="50" rx="3" ry="3" class="component-box battery-component" />
+        <text x="0" y="-5" class="label" text-anchor="middle">Li-ion Battery Pack</text>
+        <text x="0" y="15" class="smallLabel" text-anchor="middle">60 Wh (4S2P Configuration)</text>
+        
+        <!-- Internal battery cells illustration -->
+        <rect x="-90" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="-65" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="-40" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="-15" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="10" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="35" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="60" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+        <rect x="85" y="-15" width="20" height="30" fill="white" stroke="#0F1C2E" stroke-width="0.5" />
+      </g>
+      
+      <!-- Battery Management System (BMS) -->
+      <g transform="translate(220, 0)">
+        <rect x="-50" y="-20" width="100" height="40" class="component-box battery-component" />
+        <text x="0" y="-5" class="label" text-anchor="middle">BMS</text>
+        <text x="0" y="10" class="smallLabel" text-anchor="middle">Cell Balancing</text>
+      </g>
+    </g>
+    
+    <!-- 3. Power Distribution Components -->
+    <g transform="translate(70, 310)">
+      <!-- Power Distribution Unit (PDU) -->
+      <rect x="20" y="-25" width="120" height="50" class="component-box distribution-component" />
+      <text x="80" y="-5" class="label" text-anchor="middle">PDU</text>
+      <text x="80" y="15" class="smallLabel" text-anchor="middle">Load Switching</text>
+      
+      <!-- Voltage Regulators -->
+      <g transform="translate(200, -15)">
+        <rect x="-30" y="-10" width="60" height="20" class="component-box distribution-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">3.3V Reg</text>
+      </g>
+      
+      <g transform="translate(200, 15)">
+        <rect x="-30" y="-10" width="60" height="20" class="component-box distribution-component" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">5V Reg</text>
+      </g>
+      
+      <!-- Protection Circuit -->
+      <g transform="translate(0, 0)">
+        <rect x="-50" y="-20" width="60" height="40" class="component-box distribution-component" />
+        <text x="-20" y="-5" class="smallLabel" text-anchor="middle">Protection</text>
+        <text x="-20" y="10" class="smallLabel" text-anchor="middle">Circuit</text>
+      </g>
+    </g>
+    
+    <!-- 4. Power Monitoring and Control -->
+    <g transform="translate(515, 185)">
+      <!-- Main Controller -->
+      <rect x="-70" y="-30" width="140" height="60" class="component-box monitoring-component" />
+      <text x="0" y="-10" class="label" text-anchor="middle">Power Control MCU</text>
+      <text x="0" y="10" class="smallLabel" text-anchor="middle">Health Monitoring</text>
+      
+      <!-- Current/Voltage Sensors -->
+      <g transform="translate(0, -90)">
+        <rect x="-100" y="-25" width="200" height="50" rx="2" ry="2" class="component-box monitoring-component" />
+        <text x="0" y="0" class="label" text-anchor="middle">Current/Voltage Sensors</text>
+        <text x="-75" y="15" class="smallLabel">Input</text>
+        <text x="0" y="15" class="smallLabel">Battery</text>
+        <text x="75" y="15" class="smallLabel">Output</text>
+      </g>
+      
+      <!-- Power Budget Monitor -->
+      <g transform="translate(0, 90)">
+        <rect x="-120" y="-35" width="240" height="70" rx="2" ry="2" class="component-box monitoring-component" />
+        <text x="0" y="-15" class="label" text-anchor="middle">Power Mode Controller</text>
+        <text x="-100" y="5" class="smallLabel" text-anchor="start">• Normal Operations</text>
+        <text x="-100" y="20" class="smallLabel" text-anchor="start">• Low Power Mode</text>
+        <text x="20" y="5" class="smallLabel" text-anchor="start">• Safe Mode</text>
+        <text x="20" y="20" class="smallLabel" text-anchor="start">• Critical Mode</text>
+      </g>
+    </g>
+    
+    <!-- Power Flow Connections -->
+    <!-- Solar Panels to MPPT -->
+    <path d="M30,70 L50,120" class="power-flow primary-flow" />
+    <path d="M110,70 L90,105" class="power-flow primary-flow" />
+    <path d="M190,70 L150,105" class="power-flow primary-flow" />
+    <path d="M270,70 L170,120" class="power-flow primary-flow" />
+    
+    <!-- MPPT to Battery -->
+    <path d="M150,155 L150,165" class="power-flow primary-flow" />
+    
+    <!-- Battery to BMS -->
+    <path d="M240,190 L240,190" class="power-flow secondary-flow" />
+    
+    <!-- Battery to Protection Circuit -->
+    <path d="M70,190 L30,290" class="power-flow primary-flow" />
+    
+    <!-- Protection Circuit to PDU -->
+    <path d="M30,310 L80,310" class="power-flow primary-flow" />
+    
+    <!-- PDU to Regulators -->
+    <path d="M170,295 L170,295" class="power-flow primary-flow" />
+    <path d="M170,325 L170,325" class="power-flow primary-flow" />
+    
+    <!-- Sensor Connections -->
+    <path d="M
+

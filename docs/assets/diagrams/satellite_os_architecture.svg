@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>SkyMesh Satellite Operating System Architecture</title>
+  
+  <!-- Styles -->
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 14px; font-style: italic; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; }
+    .smallLabel { font-family: Arial, sans-serif; font-size: 10px; }
+    .microLabel { font-family: Arial, sans-serif; font-size: 8px; }
+    .annotation { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; font-style: italic; }
+    
+    .layer-box { fill: white; stroke-width: 1.5; }
+    .component-box { fill: white; stroke-width: 1; rx: 3; ry: 3; }
+    .interface-box { fill: white; stroke-width: 1; rx: 5; ry: 5; }
+    
+    .kernel-component { stroke: #0F1C2E; fill: #0F1C2E; fill-opacity: 0.1; }
+    .hal-component { stroke: #1E88E5; fill: #1E88E5; fill-opacity: 0.1; }
+    .driver-component { stroke: #42A5F5; fill: #42A5F5; fill-opacity: 0.1; }
+    .service-component { stroke: #64B5F6; fill: #64B5F6; fill-opacity: 0.1; }
+    .application-component { stroke: #90CAF9; fill: #90CAF9; fill-opacity: 0.1; }
+    
+    .communication-component { stroke: #FFC107; fill: #FFC107; fill-opacity: 0.1; }
+    .safety-component { stroke: #F44336; fill: #F44336; fill-opacity: 0.1; }
+    .power-component { stroke: #4CAF50; fill: #4CAF50; fill-opacity: 0.1; }
+    .memory-component { stroke: #7E57C2; fill: #7E57C2; fill-opacity: 0.1; }
+    .scheduler-component { stroke: #FF9800; fill: #FF9800; fill-opacity: 0.1; }
+    
+    .connection { stroke-width: 1.5; fill: none; }
+    .data-flow { stroke: #0F1C2E; marker-end: url(#arrowhead); }
+    .control-flow { stroke: #1E88E5; stroke-dasharray: 4,2; marker-end: url(#arrowhead); }
+    .safety-flow { stroke: #F44336; stroke-dasharray: 2,2; marker-end: url(#arrowhead); }
+    
+    .layer-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; }
+    .layer-section { opacity: 0.05; stroke-width: 1; }
+    .kernel-section { fill: #0F1C2E; stroke: #0F1C2E; }
+    .hal-section { fill: #1E88E5; stroke: #1E88E5; }
+    .driver-section { fill: #42A5F5; stroke: #42A5F5; }
+    .service-section { fill: #64B5F6; stroke: #64B5F6; }
+    .application-section { fill: #90CAF9; stroke: #90CAF9; }
+    
+    .hardware-box { fill: #EEEEEE; stroke: #666666; stroke-width: 1; }
+  </style>
+  
+  <!-- Arrow Marker Definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto">
+      <polygon points="0 0, 5 1.75, 0 3.5" />
+    </marker>
+  </defs>
+  
+  <!-- Title and Information -->
+  <g transform="translate(400, 30)" text-anchor="middle">
+    <text class="title">SkyMesh Satellite Operating System Architecture</text>
+    <text class="subtitle" y="25">Radiation-Hardened Microkernel RTOS for Space Applications</text>
+  </g>
+  
+  <!-- Main System Layout -->
+  <g transform="translate(50, 80)">
+    
+    <!-- OS Layering Structure -->
+    <!-- Hardware Layer (Bottom) -->
+    <rect x="0" y="450" width="700" height="50" class="hardware-box" rx="5" ry="5" />
+    <text x="350" y="480" class="layer-label" text-anchor="middle">Hardware (ARM Cortex-A72)</text>
+    
+    <!-- Kernel Layer -->
+    <rect x="0" y="370" width="700" height="70" class="layer-box kernel-section layer-section" rx="5" ry="5" />
+    <text x="90" y="390" class="layer-label" text-anchor="middle">Microkernel</text>
+    
+    <!-- Hardware Abstraction Layer -->
+    <rect x="0" y="310" width="700" height="50" class="layer-box hal-section layer-section" rx="5" ry="5" />
+    <text x="110" y="330" class="layer-label" text-anchor="middle">Hardware Abstraction</text>
+    
+    <!-- Device Drivers Layer -->
+    <rect x="0" y="230" width="700" height="70" class="layer-box driver-section layer-section" rx="5" ry="5" />
+    <text x="90" y="250" class="layer-label" text-anchor="middle">Device Drivers</text>
+    
+    <!-- Core Services Layer -->
+    <rect x="0" y="120" width="700" height="100" class="layer-box service-section layer-section" rx="5" ry="5" />
+    <text x="90" y="140" class="layer-label" text-anchor="middle">Core Services</text>
+    
+    <!-- Application Layer -->
+    <rect x="0" y="50" width="700" height="60" class="layer-box application-section layer-section" rx="5" ry="5" />
+    <text x="90" y="70" class="layer-label" text-anchor="middle">Applications</text>
+    
+    <!-- 1. Microkernel Components -->
+    <g transform="translate(180, 405)">
+      <rect x="-60" y="-25" width="120" height="50" class="component-box kernel-component" />
+      <text x="0" y="-5" class="label" text-anchor="middle">Minimal TCB</text>
+      <text x="0" y="10" class="smallLabel" text-anchor="middle">Trusted Computing Base</text>
+    </g>
+    
+    <g transform="translate(350, 405)">
+      <rect x="-60" y="-25" width="120" height="50" class="component-box scheduler-component" />
+      <text x="0" y="-5" class="label" text-anchor="middle">RTOS Scheduler</text>
+      <text x="0" y="10" class="smallLabel" text-anchor="middle">Mixed Criticality</text>
+    </g>
+    
+    <g transform="translate(520, 405)">
+      <rect x="-60" y="-25" width="120" height="50" class="component-box memory-component" />
+      <text x="0" y="-5" class="label" text-anchor="middle">Memory Protection</text>
+      <text x="0" y="10" class="smallLabel" text-anchor="middle">Process Isolation</text>
+    </g>
+    
+    <!-- HAL Components -->
+    <g transform="translate(230, 335)">
+      <rect x="-120" y="-15" width="240" height="30" class="component-box hal-component" />
+      <text x="0" y="5" class="label" text-anchor="middle">Platform Abstraction Layer</text>
+    </g>
+    
+    <g transform="translate(520, 335)">
+      <rect x="-80" y="-15" width="160" height="30" class="component-box hal-component" />
+      <text x="0" y="5" class="label" text-anchor="middle">Radiation Hardening</text>
+    </g>
+    
+    <!-- Device Driver Components -->
+    <g transform="translate(120, 265)">
+      <rect x="-50" y="-15" width="100" height="30" class="component-box driver-component" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Power Subsystem</text>
+    </g>
+    
+    <g transform="translate(250, 265)">
+      <rect x="-50" y="-15" width="100" height="30" class="component-box driver-component" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Communication</text>
+    </g>
+    
+    <g transform="translate(380, 265)">
+      <rect x="-50" y="-15" width="100" height="30" class="component-box driver-component" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Sensors/ADCS</text>
+    </g>
+    
+    <g transform="translate(510, 265)">
+      <rect x="-50" y="-15" width="100" height="30" class="component-box driver-component" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Storage</text>
+    </g>
+    
+    <g transform="translate(640, 265)">
+      <rect x="-50" y="-15" width="100" height="30" class="component-box driver-component" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Thermal</text>
+    </g>
+    
+    <!-- Core Services Components -->
+    <g transform="translate(120, 200)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box safety-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Health Monitoring</text>
+    </g>
+    
+    <g transform="translate(280, 200)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box communication-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Communication Stack</text>
+    </g>
+    
+    <g transform="translate(440, 200)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box power-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Power Management</text>
+    </g>
+    
+    <g transform="translate(600, 200)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box service-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Resource Manager</text>
+    </g>
+    
+    <g transform="translate(175, 150)">
+      <rect x="-80" y="-20" width="160" height="40" class="component-box safety-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Fault Detection/Recovery</text>
+    </g>
+    
+    <g transform="translate(355, 150)">
+      <rect x="-80" y="-20" width="160" height="40" class="component-box memory-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Memory Scrubbing (EDAC)</text>
+    </g>
+    
+    <g transform="translate(535, 150)">
+      <rect x="-80" y="-20" width="160" height="40" class="component-box service-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Inter-Process Communication</text>
+    </g>
+    
+    <!-- Application Components -->
+    <g transform="translate(120, 80)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box application-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Mission Control</text>
+    </g>
+    
+    <g transform="translate(280, 80)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box application-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Mesh Networking</text>
+    </g>
+    
+    <g transform="translate(440, 80)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box application-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Telemetry/Payload</text>
+    </g>
+    
+    <g transform="translate(600, 80)">
+      <rect x="-60" y="-20" width="120" height="40" class="component-box application-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">Orbit Management</text>
+    </g>
+    
+    <!-- System Interfaces - Vertical Connections -->
+    <!-- Secure Boot Chain -->
+    <path d="M120,240 L120,220" class="connection data-flow" />
+    <path d="M250,240 L280,220" class="connection data-flow" />
+    <path d="M380,240 L380,220" class="connection data-flow" />
+    <path d="M510,240 L510,220" class="connection data-flow" />
+    <path d="M640,240 L600,220" class="connection data-flow" />
+    
+    <!-- Services to Apps Connections -->
+    <path d="M120,130 L120,100" class="connection data-flow" />
+    <path d="M280,130 L280,100" class="connection data-flow" />
+    <path d="M440,130 L440,100" class="connection data-flow" />
+    <path d="M600,130 L600,100" class="connection data-flow" />
+    
+    <!-- Inter-service Connections -->
+    <path d="M175,150 L355,150" class="connection control-flow" />
+    <path d="M355,150 L535,150" class="connection control-flow" />
+    
+    <!-- Error Handling Flow -->
+    <path d="M175,130 L175,80" class="connection safety-flow" />
+    <text x="155" y="105" class="microLabel" text-anchor="end">Error Handling</text>
+    
+    <!-- Security Subsystem -->
+    <g transform="translate(650, 300)">
+      <rect x="-100" y="-50" width="150" height="100" class="component-box" fill="#FF5722" fill-opacity="0.1" stroke="#FF5722" />
+      <text x="-25" y="-30" class="label" text-anchor="middle">Security</text>
+      <text x="-25" y="-15" class="smallLabel" text-anchor="middle">Subsystem</text>
+      
+      <g transform="translate(-60, 10)">
+        <rect x="-25" y="-15" width="50" height="30" class="component-box" stroke="#FF5722" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Crypto</text>
+      </g>
+      
+      <g transform="translate(10, 10)">
+        <rect x="-25" y="-15" width="50" height="30" class="component-box" stroke="#FF5722" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">Auth</text>
+      </g>
+      
+      <!-- Security Connections -->
+      <path d="M-25,-15 L-25,-100 L-295,-100" class="connection safety-flow" />
+      <text x="-150" y="-105" class="microLabel" text-anchor="middle">Secure Operations</text>
+    </g>
+    
+    <!-- Interface Boxes -->
+    <g transform="translate(75, 260)">
+      <rect x="0" y="0" width="150" height="40" class="interface-box" stroke="#666666" stroke-dasharray="5,2" />
+      <text x="75" y="15" class="smallLabel" text-anchor="middle">Hardware Access Interface</text>
+      <text x="75" y="30" class="microLabel" text-anchor="middle">(Protected Mode)</text>
+    </g>
+    
+    <g transform="translate(350, 100)">
+      <rect x="-75" y="-15" width="150" height="30" class="interface-box" stroke="#666666" stroke-dasharray="5,2" />
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Message Passing Interface</text>
+    </g>
+    
+    <!-- Bootloader Chain Visualization -->
+    <g transform="translate(50, 410)">
+      <rect x="0" y="0" width="100" height="30" class="component-box safety-component" rx="2" ry="2" />
+      <text x="50" y="18" class="smallLabel" text-anchor="middle">ROM Bootloader</text>
+      
+      <rect x="150" y="0" width="100" height="30" class="component-box safety-component" rx="2" ry="2" />
+      <text x="200" y="18" class="smallLabel" text-anchor="middle">Primary Bootloader</text>
+      
+      <rect x="300" y="0" width="100" height="30" class="component-box safety-component" rx="2" ry="2" />
+      <text x="350" y="18" class="smallLabel" text-anchor="middle">Secondary Bootloader</text>
+      
+      <rect x="450" y="0" width="100" height="30" class="component-box kernel-component" rx="2" ry="2" />
+      <text x="500" y="18" class="smallLabel" text-anchor="middle">Kernel Image</text>
+      
+      <rect x="600" y="0" width="100" height="30" class="component-box application-component" rx="2" ry="2" />
+      <text x="650" y="18" class="smallLabel" text-anchor="middle">Root Filesystem</text>
+      
+      <path d="M100,15 L150,15" class="connection safety-flow" />
+      <path d="M250,15 L300,15" class="connection safety-flow" />
+      <path d="M400,15 L450,15" class="connection safety-flow" />
+      <path d="M550,15 L600,15" class="connection safety-flow" />
+      
+      <text x="125" y="5" class="microLabel" text-anchor="middle">Integrity Check</text>
+      <text x="275" y="5" class="microLabel" text-anchor="middle">Signature Verification</text>
+      <text x="425" y="5" class="microLabel" text-anchor="middle">Memory Setup</text>
+      <text x="575" y="5" class="microLabel" text-anchor="middle">Init Process</text>
+    </g>
+  </g>
+  
+  <!-- Performance Metrics Table -->
+  <g transform="translate(50, 500)">
+    <rect x="0" y="0" width="700" height="80" fill="white" stroke="#cccccc" stroke-width="1" />
+    <text x="350" y="20" class="label" text-anchor="middle" font-weight="bold">Performance Metrics</text>
+    
+    <!-- Column Headers -->
+    <text x="100" y="40" class="smallLabel" text-anchor="middle">Metric</text>
+    <text x="300" y="40" class="smallLabel" text-anchor="middle">Value</text>
+    <text x="500" y="40" class="smallLabel" text-anchor="middle">Notes</text>
+    
+    <!-- Data Rows -->
+    <text x="100" y="55" class="smallLabel" text-anchor="middle">Context Switch Time</text>
+    <text x="300" y="55" class="smallLabel" text-anchor="middle">< 10 μs</text>
+    <text x="500" y="55" class="smallLabel" text-anchor="middle">With Memory Protection Enabled</text>
+    
+    <text x="100" y="70" class="smallLabel" text-anchor="middle">Interrupt Latency</text>
+    <text x="300" y="70" class="smallLabel" text-anchor="middle">< 5 μs</text>
+    <text x="500" y="70" class="smallLabel" text-anchor="middle">For Critical Interrupts</text>
+  </g>
+  
+  <!-- System Legend -->
+  <g transform="translate(400, 585)" text-anchor="middle">
+    <text class="smallLabel">SkyMesh OS | RTOS for Space Applications | Triple Modular Redundancy | Radiation-Tolerant Design</text>
+  </g>
+    
+    <path d="M230,320 L230,295" class="connection data-flow" />
+    <path d="M380,320 L380,295" class="connection data-flow" />
+    <path d="M520,320 L520,295" class="connection data-flow" />
+    
+    <path d="M120,240 L120,220" class="connection data-flow" />
+    <path d="M250,240 L280,220" class="connection data-flow" />
+    <path d="M380,240 L380,220" class="connection data-flow" />
+    <path d="M510,240 L510,220" class="connection data-flow" />
+    <path d="M640,240 L600,220" class="connection data-flow" />
+    
+

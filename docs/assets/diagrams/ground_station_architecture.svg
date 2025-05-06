@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>SkyMesh Ground Station Architecture</title>
+  
+  <!-- Styles -->
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 14px; font-style: italic; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; }
+    .smallLabel { font-family: Arial, sans-serif; font-size: 10px; }
+    .microLabel { font-family: Arial, sans-serif; font-size: 8px; }
+    .annotation { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; font-style: italic; }
+    
+    .system-box { fill: white; stroke: #333333; stroke-width: 1.5; }
+    .module-box { fill: white; stroke-width: 1.5; rx: 5; ry: 5; }
+    .component-box { fill: white; stroke-width: 1; }
+    
+    .antenna-component { stroke: #1E88E5; fill: #1E88E5; fill-opacity: 0.1; }
+    .sdr-component { stroke: #FFC107; fill: #FFC107; fill-opacity: 0.1; }
+    .computer-component { stroke: #0F1C2E; fill: #0F1C2E; fill-opacity: 0.1; }
+    .network-component { stroke: #4CAF50; fill: #4CAF50; fill-opacity: 0.1; }
+    .control-component { stroke: #7E57C2; fill: #7E57C2; fill-opacity: 0.1; }
+    
+    .rf-signal { stroke: #1E88E5; stroke-width: 2; stroke-dasharray: 5,3; fill: none; marker-end: url(#arrowhead); }
+    .data-signal { stroke: #0F1C2E; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .control-signal { stroke: #7E57C2; stroke-width: 1.5; stroke-dasharray: 2,2; fill: none; marker-end: url(#arrowhead); }
+    .network-signal { stroke: #4CAF50; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    
+    .spec-table { fill: white; stroke: #cccccc; }
+    .spec-header { font-weight: bold; font-size: 10px; }
+    .spec-row { font-size: 9px; }
+    
+    .module-section { opacity: 0.05; stroke-width: 1; }
+    .antenna-section { fill: #1E88E5; stroke: #1E88E5; }
+    .sdr-section { fill: #FFC107; stroke: #FFC107; }
+    .computer-section { fill: #0F1C2E; stroke: #0F1C2E; }
+    .network-section { fill: #4CAF50; stroke: #4CAF50; }
+  </style>
+  
+  <!-- Arrow Marker Definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto">
+      <polygon points="0 0, 5 1.75, 0 3.5" />
+    </marker>
+  </defs>
+  
+  <!-- Title and Information -->
+  <g transform="translate(400, 30)" text-anchor="middle">
+    <text class="title">SkyMesh Ground Station Architecture</text>
+    <text class="subtitle" y="25">Low-Cost DIY Ground Station with SDR Capabilities</text>
+  </g>
+  
+  <!-- Main System Layout -->
+  <g transform="translate(50, 80)">
+    <!-- Overall System Boundary -->
+    <rect x="0" y="0" width="700" height="420" class="system-box" rx="5" ry="5" />
+    
+    <!-- Module Sections -->
+    <rect x="20" y="20" width="160" height="380" class="antenna-section module-section" rx="3" ry="3" />
+    <rect x="190" y="20" width="160" height="380" class="sdr-section module-section" rx="3" ry="3" />
+    <rect x="360" y="20" width="160" height="380" class="computer-section module-section" rx="3" ry="3" />
+    <rect x="530" y="20" width="150" height="380" class="network-section module-section" rx="3" ry="3" />
+    
+    <!-- Section Labels -->
+    <text x="100" y="40" class="label" text-anchor="middle">Antenna System</text>
+    <text x="270" y="40" class="label" text-anchor="middle">RF Processing</text>
+    <text x="440" y="40" class="label" text-anchor="middle">Computing System</text>
+    <text x="605" y="40" class="label" text-anchor="middle">Network Connectivity</text>
+    
+    <!-- 1. Antenna System Components -->
+    <g transform="translate(100, 120)">
+      <!-- Antenna -->
+      <g transform="translate(0, -50)">
+        <path d="M-30,0 L0,-60 L30,0 Z" class="antenna-component" />
+        <rect x="-35" y="0" width="70" height="20" class="component-box antenna-component" />
+        <text x="0" y="14" class="smallLabel" text-anchor="middle">Yagi-Uda Array</text>
+      </g>
+      
+      <!-- Rotator Controller -->
+      <g transform="translate(0, 50)">
+        <rect x="-50" y="-25" width="100" height="50" class="component-box antenna-component" rx="2" ry="2" />
+        <text x="0" y="-5" class="label" text-anchor="middle">Az/El Rotator</text>
+        <text x="0" y="15" class="smallLabel" text-anchor="middle">360° / 180° Range</text>
+      </g>
+      
+      <!-- LNA -->
+      <g transform="translate(0, 0)">
+        <rect x="-30" y="-15" width="60" height="30" class="component-box antenna-component" rx="2" ry="2" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">LNA</text>
+        <text x="0" y="20" class="microLabel" text-anchor="middle">+20dB Gain</text>
+      </g>
+      
+      <!-- Coaxial Cable -->
+      <g transform="translate(60, 0)">
+        <path d="M-10,0 L30,0" class="rf-signal" />
+        <text x="10" y="-5" class="microLabel" text-anchor="middle">RF</text>
+      </g>
+      
+      <!-- Control Connection -->
+      <path d="M0,25 L0,50 L-50,50" class="control-signal" />
+      
+      <!-- Weather Protection -->
+      <g transform="translate(0, 100)">
+        <rect x="-45" y="-5" width="90" height="40" class="component-box antenna-component" stroke-dasharray="5,2" rx="2" ry="2" />
+        <text x="0" y="15" class="smallLabel" text-anchor="middle">Weather Shield</text>
+        <text x="0" y="30" class="microLabel" text-anchor="middle">IP65 Rated</text>
+      </g>
+    </g>
+    
+    <!-- 2. SDR Processing Components -->
+    <g transform="translate(270, 120)">
+      <!-- SDR Hardware -->
+      <g transform="translate(0, 0)">
+        <rect x="-60" y="-30" width="120" height="60" class="component-box sdr-component" rx="2" ry="2" />
+        <text x="0" y="-10" class="label" text-anchor="middle">SDR Receiver</text>
+        <text x="0" y="10" class="smallLabel" text-anchor="middle">RTL-SDR / HackRF</text>
+        <text x="0" y="25" class="microLabel" text-anchor="middle">24MHz - 1.7GHz</text>
+      </g>
+      
+      <!-- Bandpass Filter -->
+      <g transform="translate(-40, -50)">
+        <rect x="-25" y="-15" width="50" height="30" class="component-box sdr-component" rx="1" ry="1" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">BPF</text>
+        <text x="0" y="20" class="microLabel" text-anchor="middle">Band-specific</text>
+      </g>
+      
+      <!-- Optional Power Amplifier -->
+      <g transform="translate(40, -50)">
+        <rect x="-25" y="-15" width="50" height="30" class="component-box sdr-component" rx="1" ry="1" stroke-dasharray="3,1" />
+        <text x="0" y="5" class="smallLabel" text-anchor="middle">TX Amp</text>
+        <text x="0" y="20" class="microLabel" text-anchor="middle">(Optional)</text>
+      </g>
+      
+      <!-- USB Connection -->
+      <g transform="translate(60, 0)">
+        <path d="M0,0 L30,0" class="data-signal" />
+        <text x="15" y="-5" class="microLabel" text-anchor="middle">USB 3.0</text>
+      </g>
+      
+      <!-- RF Connections -->
+      <path d="M-40,-50 L-40,-30" class="rf-signal" />
+      <path d="M40,-50 L40,-30" class="rf-signal" stroke-dasharray="3,1" />
+      <path d="M-70,0 L-60,0" class="rf-signal" />
+    </g>
+    
+    <!-- 3. Computing System Components -->
+    <g transform="translate(440, 120)">
+      <!-- Raspberry Pi -->
+      <g transform="translate(0, 0)">
+        <rect x="-70" y="-40" width="140" height="80" class="component-box computer-component" rx="2" ry="2" />
+        <text x="0" y="-20" class="label" text-anchor="middle">Raspberry Pi 4</text>
+        <text x="-50" y="0" class="smallLabel" text-anchor="start">• 4 GB RAM</text>
+        <text x="-50" y="15" class="smallLabel" text-anchor="start">• Quad-Core ARM</text>
+        <text x="-50" y="30" class="smallLabel" text-anchor="start">• Ethernet+WiFi</text>
+      </g>
+      
+      <!-- Storage -->
+      <g transform="translate(0, -90)">
+        <rect x="-40" y="-20" width="80" height="40" class="component-box computer-component" rx="2" ry="2" />
+        <text x="0" y="0" class="smallLabel" text-anchor="middle">Data Storage</text>
+        <text x="0" y="15" class="microLabel" text-anchor="middle">128GB+ SSD</text>
+      </g>
+      
+      <!-- Software Stack -->
+      <g transform="translate(0, 90)">
+        <rect x="-60" y="-30" width="120" height="60" class="component-box computer-component" rx="2" ry="2" />
+        <text x="0" y="-15" class="smallLabel" text-anchor="middle">Software Stack</text>
+        <text x="-50" y="5" class="microLabel" text-anchor="start">• GNU Radio</text>
+        <text x="0" y="5" class="microLabel" text-anchor="start">• gr-satellites</text>
+        <text x="-50" y="20" class="microLabel" text-anchor="start">• SatNOGS</text>
+        <text x="0" y="20" class="microLabel" text-anchor="start">• SkyMesh Client</text>
+      </g>
+      
+      <!-- Connections -->
+      <path d="M0,-40 L0,-50" class="data-signal" />
+      <path d="M0,40 L0,60" class="data-signal" />
+      <path d="M70,0 L90,0" class="network-signal" />
+      <path d="M-70,0 L-100,0" class="data-signal" />
+      
+      <!-- Control Connection to Rotator -->
+      <path d="M-70,-20 C-120,-20 -300,50 -300,50" class="control-signal" />
+    </g>
+    
+    <!-- 4. Network Connectivity Components -->
+    <g transform="translate(605, 120)">
+      <!-- Internet Router -->
+      <g transform="translate(0, 0)">
+        <rect x="-50" y="-30" width="100" height="60" class="component-box network-component" rx="2" ry="2" />
+        <text x="0" y="-10" class="smallLabel" text-anchor="middle">Internet Gateway</text>
+        <text x="0" y="10" class="microLabel" text-anchor="middle">(When Available)</text>
+      </g>
+      
+      <!-- Mesh Network Controller -->
+      <g transform="translate(0, 90)">
+        <rect x="-60" y="-30" width="120" height="60" class="component-box network-component" rx="2" ry="2" />
+        <text x="0" y="-10" class="smallLabel" text-anchor="middle">Mesh Network</text>
+        <text x="0" y="10" class="smallLabel" text-anchor="middle">Controller</text>
+      </g>
+      
+      <!-- Local Network -->
+      <g transform="translate(0, -70)">
+        <rect x="-45" y="-20" width="90" height="40" class="component-box network-component" rx="2" ry="2" />
+        <text x="0" y="0" class="smallLabel" text-anchor="middle">Local Network</text>
+        <text x="0" y="15" class="microLabel" text-anchor="middle">Web UI Access</text>
+      </g>
+      
+      <!-- External Communications -->
+      <g transform="translate(30, -120)">
+        <path d="M-30,30 C-30,0 0,-15 30,-30" class="network-signal" />
+        <path d="M-30,50 C-30,70 0,80 30,90" class="network-signal" />
+        <text x="40" y="-30
+

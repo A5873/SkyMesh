@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>SkyMesh Satellite Hardware Layout - 3U CubeSat</title>
+  
+  <!-- Styles -->
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 14px; font-style: italic; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; }
+    .smallLabel { font-family: Arial, sans-serif; font-size: 10px; }
+    .dimension { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; }
+    
+    .cubesat-outline { fill: none; stroke: #333333; stroke-width: 2; }
+    .section-divider { stroke: #666666; stroke-width: 1; stroke-dasharray: 5,3; }
+    
+    .obc-section { fill: #1E88E5; fill-opacity: 0.2; stroke: #1E88E5; stroke-width: 1; }
+    .comms-section { fill: #FFC107; fill-opacity: 0.2; stroke: #FFC107; stroke-width: 1; }
+    .power-section { fill: #0F1C2E; fill-opacity: 0.2; stroke: #0F1C2E; stroke-width: 1; }
+    .adcs-section { fill: #388E3C; fill-opacity: 0.2; stroke: #388E3C; stroke-width: 1; }
+    .thermal-section { fill: #D32F2F; fill-opacity: 0.2; stroke: #D32F2F; stroke-width: 1; }
+    
+    .component { fill: white; stroke-width: 1; }
+    .obc-component { stroke: #1E88E5; }
+    .comms-component { stroke: #FFC107; }
+    .power-component { stroke: #0F1C2E; }
+    .adcs-component { stroke: #388E3C; }
+    .thermal-component { stroke: #D32F2F; }
+    
+    .connection { stroke-width: 1.5; fill: none; }
+    .data-connection { stroke: #1E88E5; stroke-dasharray: none; }
+    .power-connection { stroke: #0F1C2E; stroke-dasharray: none; }
+    .rf-connection { stroke: #FFC107; stroke-dasharray: 5,2; }
+    
+    .dimension-line { stroke: #666666; stroke-width: 1; }
+    .dimension-arrow { fill: #666666; }
+  </style>
+  
+  <!-- Title and Information -->
+  <g transform="translate(400, 30)" text-anchor="middle">
+    <text class="title">SkyMesh Satellite Hardware Layout</text>
+    <text class="subtitle" y="25">3U CubeSat (10×10×30 cm)</text>
+  </g>
+  
+  <!-- CubeSat Outline and Dimensions -->
+  <g transform="translate(150, 100)">
+    <!-- Main 3U CubeSat outline -->
+    <rect x="0" y="0" width="100" height="300" class="cubesat-outline" rx="2" ry="2" />
+    
+    <!-- Dimension lines and labels -->
+    <line x1="-20" y1="0" x2="-20" y2="300" class="dimension-line" />
+    <line x1="-25" y1="0" x2="-15" y2="0" class="dimension-line" />
+    <line x1="-25" y1="300" x2="-15" y2="300" class="dimension-line" />
+    <text x="-40" y="150" class="dimension" text-anchor="middle" transform="rotate(-90, -40, 150)">300 mm (3U)</text>
+    
+    <line x1="0" y1="320" x2="100" y2="320" class="dimension-line" />
+    <line x1="0" y1="325" x2="0" y2="315" class="dimension-line" />
+    <line x1="100" y1="325" x2="100" y2="315" class="dimension-line" />
+    <text x="50" y="335" class="dimension" text-anchor="middle">100 mm (1U)</text>
+    
+    <!-- Section dividers -->
+    <line x1="0" y1="100" x2="100" y2="100" class="section-divider" />
+    <line x1="0" y1="200" x2="100" y2="200" class="section-divider" />
+    
+    <!-- Section highlights -->
+    <rect x="2" y="2" width="96" height="96" class="power-section" rx="2" ry="2" />
+    <rect x="2" y="102" width="96" height="96" class="obc-section" rx="2" ry="2" />
+    <rect x="2" y="202" width="96" height="96" class="comms-section" rx="2" ry="2" />
+    
+    <!-- Top Section: Power Subsystem -->
+    <g transform="translate(50, 50)">
+      <rect x="-40" y="-25" width="80" height="50" class="component power-component" rx="2" ry="2" />
+      <text x="0" y="0" class="label" text-anchor="middle">Power Subsystem</text>
+      <text x="0" y="15" class="smallLabel" text-anchor="middle">Solar, Batteries, EPS</text>
+      
+      <!-- Solar panels (simplified) -->
+      <rect x="-48" y="-40" width="10" height="80" class="component power-component" />
+      <text x="-43" y="-15" class="smallLabel" transform="rotate(-90, -43, -15)">Solar Panel</text>
+      
+      <rect x="38" y="-40" width="10" height="80" class="component power-component" />
+      <text x="43" y="-15" class="smallLabel" transform="rotate(90, 43, -15)">Solar Panel</text>
+    </g>
+    
+    <!-- Middle Section: OBC -->
+    <g transform="translate(50, 150)">
+      <rect x="-35" y="-25" width="70" height="50" class="component obc-component" rx="2" ry="2" />
+      <text x="0" y="-10" class="label" text-anchor="middle">Onboard Computer</text>
+      <text x="0" y="5" class="smallLabel" text-anchor="middle">Raspberry Pi CM4</text>
+      <text x="0" y="20" class="smallLabel" text-anchor="middle">Radiation Hardened</text>
+      
+      <!-- ADCS components -->
+      <rect x="-45" y="-35" width="20" height="15" class="component adcs-component" rx="1" ry="1" />
+      <text x="-35" y="-25" class="smallLabel" text-anchor="middle" font-size="8">ADCS</text>
+      
+      <!-- Thermal management components -->
+      <rect x="25" y="-35" width="20" height="15" class="component thermal-component" rx="1" ry="1" />
+      <text x="35" y="-25" class="smallLabel" text-anchor="middle" font-size="8">Thermal</text>
+    </g>
+    
+    <!-- Bottom Section: Communications -->
+    <g transform="translate(50, 250)">
+      <rect x="-40" y="-25" width="80" height="50" class="component comms-component" rx="2" ry="2" />
+      <text x="0" y="-5" class="label" text-anchor="middle">Comms System</text>
+      <text x="0" y="10" class="smallLabel" text-anchor="middle">UHF/VHF + S-band</text>
+      
+      <!-- Antennas -->
+      <line x1="0" y1="25" x2="0" y2="45" class="rf-connection" />
+      <polygon points="-5,35 0,48 5,35" class="comms-component" />
+      <text x="0" y="40" class="smallLabel" text-anchor="middle" font-size="8">Antenna</text>
+    </g>
+    
+    <!-- Inter-module connections -->
+    <!-- Power to OBC -->
+    <path d="M50,75 Q60,90 60,100 L60,125 Q60,135 50,135" class="connection power-connection" />
+    
+    <!-- Power to Comms -->
+    <path d="M50,75 Q40,90 40,150 L40,225 Q40,235 50,235" class="connection power-connection" />
+    
+    <!-- OBC to Comms -->
+    <path d="M50,175 Q70,190 70,200 L70,225 Q70,235 50,235" class="connection data-connection" />
+  </g>
+  
+  <!-- Component details -->
+  <g transform="translate(500, 100)">
+    <rect x="0" y="0" width="250" height="300" fill="white" stroke="#cccccc" stroke-width="1" />
+    <text x="125" y="25" class="title" text-anchor="middle">Component Details</text>
+    
+    <!-- OBC Details -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="15" height="15" class="obc-section" />
+      <text x="25" y="12" class="label">OBC Subsystem</text>
+      <text x="25" y="30" class="smallLabel">• Raspberry Pi CM4 (1.5GHz, underclocked)</text>
+      <text x="25" y="45" class="smallLabel">• 8GB LPDDR4 RAM with ECC</text>
+      <text x="25" y="60" class="smallLabel">• 32GB radiation-tolerant storage</text>
+      <text x="25" y="75" class="smallLabel">• Watchdog circuits</text>
+    </g>
+    
+    <!-- Comms Details -->
+    <g transform="translate(20, 140)">
+      <rect x="0" y="0" width="15" height="15" class="comms-section" />
+      <text x="25" y="12" class="label">Communications</text>
+      <text x="25" y="30" class="smallLabel">• UHF/VHF for ground links</text>
+      <text x="25" y="45" class="smallLabel">• S-band for inter-satellite links</text>
+      <text x="25" y="60" class="smallLabel">• Deployable dipole antennas</text>
+      <text x="25" y="75" class="smallLabel">• Software-defined radio capability</text>
+    </g>
+    
+    <!-- Power Details -->
+    <g transform="translate(20, 220)">
+      <rect x="0" y="0" width="15" height="15" class="power-section" />
+      <text x="25" y="12" class="label">Power Subsystem</text>
+      <text x="25" y="30" class="smallLabel">• 30W deployable solar panels</text>
+      <text x="25" y="45" class="smallLabel">• 60Wh Li-ion battery pack</text>
+      <text x="25" y="60" class="smallLabel">• MPPT charge controllers</text>
+      <text x="25" y="75" class="smallLabel">• Power distribution & protection</text>
+    </g>
+  </g>
+  
+  <!-- Connection Legend -->
+  <g transform="translate(500, 420)">
+    <rect x="0" y="0" width="250" height="80" fill="white" stroke="#cccccc" stroke-width="1" />
+    <text x="125" y="20" class="label" text-anchor="middle">Connection Types</text>
+    
+    <line x1="20" y1="40" x2="80" y2="40" class="connection data-connection" />
+    <text x="90" y="45" class="smallLabel">Data Connection</text>
+    
+    <line x1="20" y1="60" x2="80" y2="60" class="connection power-connection" />
+    <text x="90" y="65" class="smallLabel">Power Connection</text>
+    
+    <line x1="150" y1="40" x2="210" y2="40" class="connection rf-connection" />
+    <text x="220" y="45" class="smallLabel">RF Signal</text>
+  </g>
+  
+  <!-- Footer -->
+  <g transform="translate(400, 580)" text-anchor="middle">
+    <text class="smallLabel">SkyMesh Project © 2025 | Technical Diagram | Scale: Not to scale</text>
+  </g>
+</svg>
+
