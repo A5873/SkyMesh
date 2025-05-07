@@ -71,9 +71,9 @@
     <g transform="translate(100, 120)">
       <!-- Antenna -->
       <g transform="translate(0, -50)">
-        <rect x="-40" y="-20" width="80" height="40" class="component-box antenna-component" rx="2" ry="2" />
-        <text x="0" y="0" class="label" text-anchor="middle">Yagi Antenna</text>
-        <text x="0" y="15" class="smallLabel" text-anchor="middle">UHF/VHF Bands</text>
+        <path d="M-30,0 L0,-60 L30,0 Z" class="antenna-component" />
+        <rect x="-35" y="0" width="70" height="20" class="component-box antenna-component" />
+        <text x="0" y="14" class="smallLabel" text-anchor="middle">Yagi-Uda Array</text>
       </g>
       
       <!-- Rotator Controller -->
@@ -208,35 +208,5 @@
       <g transform="translate(30, -120)">
         <path d="M-30,30 C-30,0 0,-15 30,-30" class="network-signal" />
         <path d="M-30,50 C-30,70 0,80 30,90" class="network-signal" />
-        <text x="40" y="-30" class="microLabel">Cloud Services</text>
-        <text x="40" y="90" class="microLabel">P2P Network</text>
-      </g>
-      
-      <!-- Connections -->
-      <path d="M0,30 L0,60" class="network-signal" />
-      <path d="M0,-30 L0,-50" class="network-signal" />
-    </g>
-  </g>
-  
-  <!-- Technical Specifications -->
-  <g transform="translate(50, 520)">
-    <rect x="0" y="0" width="700" height="60" fill="white" stroke="#cccccc" stroke-width="1" />
-    <text x="350" y="20" class="label" text-anchor="middle" font-weight="bold">Ground Station Specifications</text>
-    
-    <text x="100" y="40" class="smallLabel" text-anchor="middle">Frequency Coverage</text>
-    <text x="250" y="40" class="smallLabel" text-anchor="middle">Tracking Accuracy</text>
-    <text x="400" y="40" class="smallLabel" text-anchor="middle">Uplink Capability</text>
-    <text x="550" y="40" class="smallLabel" text-anchor="middle">Power Consumption</text>
-    
-    <text x="100" y="55" class="smallLabel" text-anchor="middle">144-146 MHz / 435-438 MHz</text>
-    <text x="250" y="55" class="smallLabel" text-anchor="middle">±2° Az/El</text>
-    <text x="400" y="55" class="smallLabel" text-anchor="middle">Optional (Licensed)</text>
-    <text x="550" y="55" class="smallLabel" text-anchor="middle">&lt; 35W typical</text>
-  </g>
-  
-  <!-- Footer -->
-  <g transform="translate(400, 595)" text-anchor="middle">
-    <text class="smallLabel">SkyMesh Ground Station | DIY Design | Open Source Software | Remote Operation Support</text>
-  </g>
-</svg>
+        <text x="40" y="-30
 

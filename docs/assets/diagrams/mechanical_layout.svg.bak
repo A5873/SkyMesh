@@ -52,6 +52,82 @@
       <rect x="-80" y="-150" width="160" height="300" class="view-boundary" />
       <text x="0" y="-170" class="label" text-anchor="middle">FRONT VIEW</text>
       
+      <!-- Main outline -->
+      <rect x="-50" y="-150" width="100" height="300" class="outline" />
+      
+      <!-- Section dividers (1U segments) -->
+      <line x1="-50" y1="0" x2="50" y2="0" class="section-line" />
+      <line x1="-50" y1="-50" x2="50" y2="-50" class="section-line" />
+      <line x1="-50" y1="50" x2="50" y2="50" class="section-line" />
+      <line x1="-50" y1="100" x2="50" y2="100" class="section-line" />
+      
+      <!-- Rails -->
+      <rect x="-50" y="-150" width="5" height="300" class="rail" />
+      <rect x="45" y="-150" width="5" height="300" class="rail" />
+      
+      <!-- Component placement (simplified) -->
+      <rect x="-40" y="-140" width="80" height="80" rx="2" ry="2" class="power-component" />
+      <text x="0" y="-100" class="smallLabel" text-anchor="middle">Power System</text>
+      
+      <rect x="-40" y="-40" width="80" height="80" rx="2" ry="2" class="obc-component" />
+      <text x="0" y="0" class="smallLabel" text-anchor="middle">OBC</text>
+      
+      <rect x="-40" y="60" width="80" height="80" rx="2" ry="2" class="comms-component" />
+      <text x="0" y="100" class="smallLabel" text-anchor="middle">Comms System</text>
+      
+      <!-- Deployable elements -->
+      <line x1="-50" y1="-120" x2="-100" y2="-170" class="solar-panel" stroke-width="3" />
+      <rect x="-130" y="-190" width="80" height="40" class="solar-panel" />
+      <text x="-90" y="-165" class="microLabel" text-anchor="middle">Solar Panel (Stowed)</text>
+      
+      <line x1="50" y1="-120" x2="100" y2="-170" class="solar-panel" stroke-width="3" />
+      <rect x="50" y="-190" width="80" height="40" class="solar-panel" />
+      <text x="90" y="-165" class="microLabel" text-anchor="middle">Solar Panel (Stowed)</text>
+      
+      <!-- Antennas -->
+      <line x1="0" y1="150" x2="0" y2="180" class="antenna" stroke-width="2" />
+      <circle cx="0" cy="185" r="5" class="antenna" />
+      <text x="0" y="200" class="microLabel" text-anchor="middle">UHF/VHF Antenna</text>
+      
+      <!-- Dimensions -->
+      <line x1="-65" y1="-150" x2="-65" y2="150" class="dimension-line" />
+      <line x1="-70" y1="-150" x2="-60" y2="-150" class="dimension-line" />
+      <line x1="-70" y1="150" x2="-60" y2="150" class="dimension-line" />
+      <text x="-75" y="0" class="dimension" text-anchor="middle" transform="rotate(-90, -75, 0)">300 mm</text>
+      
+      <line x1="-50" y1="165" x2="50" y2="165" class="dimension-line" />
+      <line x1="-50" y1="170" x2="-50" y2="160" class="dimension-line" />
+      <line x1="50" y1="170" x2="50" y2="160" class="dimension-line" />
+      <text x="0" y="180" class="dimension" text-anchor="middle">100 mm</text>
+    </g>
+    
+    <!-- Side View -->
+    <g transform="translate(420, 190)">
+      <rect x="-80" y="-150" width="160" height="300" class="view-boundary" />
+      <text x="0" y="-170" class="label" text-anchor="middle">SIDE VIEW</text>
+      
+      <!-- Main outline -->
+      <rect x="-50" y="-150" width="100" height="300" class="outline" />
+      
+      <!-- Section dividers (length segments) -->
+      <line x1="-50" y1="0" x2="50" y2="0" class="section-line" />
+      <line x1="-50" y1="-50" x2="50" y2="-50" class="section-line" />
+      <line x1="-50" y1="50" x2="50" y2="50" class="section-line" />
+      <line x1="-50" y1="100" x2="50" y2="100" class="section-line" />
+      
+      <!-- Rails -->
+      <rect x="-50" y="-150" width="5" height="300" class="rail" />
+      <rect x="45" y="-150" width="5" height="300" class="rail" />
+      
+      <!-- Deployable solar panels -->
+      <line x1="-50" y1="-130" x2="-120" y2="-130" class="solar-panel" stroke-width="3" />
+      <rect x="-160" y="-150" width="40" height="80" class="solar-panel" />
+      <text x="-140" y="-105" class="microLabel" text-anchor="middle" transform="rotate(-90, -140, -105)">Solar Panel (Deployed)</text>
+      
+      <line x1="50" y1="-130" x2="120" y2="-130" class="solar-panel" stroke-width="3" />
+      <rect x="120" y="-150" width="40" height="80" class="solar-panel" />
+      <text x="140" y="-105" class="microLabel" text-anchor="middle" transform="rotate(90, 140, -105)">Solar Panel (Deployed)</text>
+      
       <!-- S-band patch antenna -->
       <rect x="25" y="120" width="15" height="15" rx="2" ry="2" class="comms-component" />
       <text x="32" y="140" class="microLabel" text-anchor="middle">S-band</text>
@@ -79,17 +155,6 @@
       <!-- Thermal components -->
       <rect x="-45" y="140" width="90" height="5" class="thermal-component" />
       <text x="0" y="155" class="microLabel" text-anchor="middle">Radiator</text>
-      
-      <!-- Dimensions -->
-      <line x1="-65" y1="-150" x2="-65" y2="150" class="dimension-line" />
-      <line x1="-70" y1="-150" x2="-60" y2="-150" class="dimension-line" />
-      <line x1="-70" y1="150" x2="-60" y2="150" class="dimension-line" />
-      <text x="-75" y="0" class="dimension" text-anchor="middle" transform="rotate(-90, -75, 0)">300 mm</text>
-      
-      <line x1="-50" y1="165" x2="50" y2="165" class="dimension-line" />
-      <line x1="-50" y1="170" x2="-50" y2="160" class="dimension-line" />
-      <line x1="50" y1="170" x2="50" y2="160" class="dimension-line" />
-      <text x="0" y="180" class="dimension" text-anchor="middle">100 mm</text>
     </g>
     
     <!-- Top View -->
@@ -129,35 +194,5 @@
       <!-- Dimensions -->
       <line x1="-65" y1="-50" x2="-65" y2="50" class="dimension-line" />
       <line x1="-70" y1="-50" x2="-60" y2="-50" class="dimension-line" />
-      <line x1="-70" y1="50" x2="-60" y2="50" class="dimension-line" />
-      <text x="-75" y="0" class="dimension" text-anchor="middle" transform="rotate(-90, -75, 0)">100 mm</text>
-      
-      <line x1="-50" y1="65" x2="50" y2="65" class="dimension-line" />
-      <line x1="-50" y1="70" x2="-50" y2="60" class="dimension-line" />
-      <line x1="50" y1="70" x2="50" y2="60" class="dimension-line" />
-      <text x="0" y="80" class="dimension" text-anchor="middle">100 mm</text>
-    </g>
-  </g>
-  
-  <!-- Environmental Specifications -->
-  <g transform="translate(400, 500)">
-    <rect x="-350" y="0" width="700" height="80" fill="white" stroke="#cccccc" stroke-width="1" />
-    <text x="0" y="20" class="label" text-anchor="middle" font-weight="bold">Environmental Specifications</text>
-    
-    <text x="-250" y="40" class="smallLabel" text-anchor="middle">Operating Temperature</text>
-    <text x="-100" y="40" class="smallLabel" text-anchor="middle">Radiation Tolerance</text>
-    <text x="100" y="40" class="smallLabel" text-anchor="middle">Vibration Qualification</text>
-    <text x="250" y="40" class="smallLabel" text-anchor="middle">Vacuum Rating</text>
-    
-    <text x="-250" y="60" class="smallLabel" text-anchor="middle">-20°C to +60°C</text>
-    <text x="-100" y="60" class="smallLabel" text-anchor="middle">10 krad (TID)</text>
-    <text x="100" y="60" class="smallLabel" text-anchor="middle">14 Grms Random</text>
-    <text x="250" y="60" class="smallLabel" text-anchor="middle">10^-5 Torr</text>
-  </g>
-  
-  <!-- Footer -->
-  <g transform="translate(400, 595)" text-anchor="middle">
-    <text class="smallLabel">SkyMesh 3U CubeSat | Mechanical Layout | Aluminum 6061-T6 | Mass: 3.8 kg</text>
-  </g>
-</svg>
+      <line x1="-70" y
 

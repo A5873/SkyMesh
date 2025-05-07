@@ -1,0 +1,3 @@
+/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

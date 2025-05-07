@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

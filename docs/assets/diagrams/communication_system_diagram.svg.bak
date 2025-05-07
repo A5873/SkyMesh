@@ -77,16 +77,9 @@
       
       <!-- UHF/VHF Transceiver -->
       <rect x="-70" y="-15" width="140" height="30" rx="2" ry="2" class="component-box uhf-component" />
-      <text x="5" y="60" class="spec-row">Encryption:</text>
-      <text x="270" y="60" class="spec-row" text-anchor="end">AES-256 / ChaCha20</text>
-    </g>
-  </g>
-  
-  <!-- Footer -->
-  <g transform="translate(400, 595)" text-anchor="middle">
-    <text class="smallLabel">SkyMesh Communication System | UHF/VHF and S-Band Capability | Software-Defined Radio Architecture</text>
-  </g>
-</svg>
+      <text x="0" y="5" class="label" text-anchor="middle">UHF/VHF Transceiver</text>
+      
+      <!-- UHF/VHF Modem -->
       <g transform="translate(0, 50)">
         <rect x="-60" y="-15" width="120" height="30" rx="2" ry="2" class="component-box uhf-component" />
         <text x="0" y="5" class="label" text-anchor="middle">AFSK/GMSK Modem</text>
