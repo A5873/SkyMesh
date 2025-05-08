@@ -72,8 +72,28 @@ install(TARGETS skymesh_core
 )
 install(DIRECTORY include/ DESTINATION include)
 
+# Create test_utils.h header with compatibility fixes
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/test_utils.h [[
+#pragma once
+
+// Compatibility shims for Google Test with C++17
+namespace testing {
+namespace internal {
+    template <size_t... I>
+    using IndexSequence = std::index_sequence<I...>;
+
+    template <size_t N>
+    using MakeIndexSequence = std::make_index_sequence<N>;
+}  // namespace internal
+}  // namespace testing
+]])
+
 # Download and configure Google Test using direct URL
 include(FetchContent)
+
+# Disable find_package for GTest to prevent system GTest interference
+set(CMAKE_DISABLE_FIND_PACKAGE_GTest TRUE CACHE BOOL "Disable finding system-installed GTest" FORCE)
+set(CMAKE_DISABLE_FIND_PACKAGE_GMock TRUE CACHE BOOL "Disable finding system-installed GMock" FORCE)
 
 # Force Google Test to use C++17
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "The C++ standard to use")
@@ -91,38 +111,44 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
         -DGTEST_USE_OWN_TR1_TUPLE=0
         -DGTEST_HAS_TR1_TUPLE=0
         -DGTEST_HAS_STD_TUPLE=1
+        -DGTEST_LANG_CXX11=1
+        -DGTEST_HAS_STREAM_REDIRECTION=1
+        -DGTEST_HAS_CXXABI_H_=1
     )
     
     # Ensure STL features are available
     add_definitions(
         -D_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES
         -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
+        -D_GLIBCXX_USE_CXX11_ABI=1
     )
 endif()
 
 # Force CMake policy for Google Test
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5 CACHE STRING "Minimum CMake policy version" FORCE)
 
+# Use a specific GoogleTest commit known to work with C++17 and our environment
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        release-1.10.0
+    GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # v1.10.0 with fixes
 )
-FetchContent_MakeAvailable(googletest)
 
-# Make sure Google Test aligns with our CMake policies
-if(TARGET gtest)
-  message(STATUS "GoogleTest found and configured")
-  set_property(TARGET gtest PROPERTY CXX_STANDARD 17)
-  set_property(TARGET gtest_main PROPERTY CXX_STANDARD 17)
-  set_property(TARGET gmock PROPERTY CXX_STANDARD 17)
-  set_property(TARGET gmock_main PROPERTY CXX_STANDARD 17)
-endif()
+# Before making Google Test available, set properties that will affect its build
+set(BUILD_GMOCK ON CACHE BOOL "Build GMock" FORCE)
+set(INSTALL_GTEST OFF CACHE BOOL "Disable Google Test installation" FORCE)
+
+FetchContent_MakeAvailable(googletest)
 
 # Configure Google Test
 include(GoogleTest)
+enable_testing()
 
-# Tests
+# Output Google Test status
+if(TARGET gtest)
+  message(STATUS "GoogleTest found and configured")
+endif()
+
 add_executable(skymesh_core_tests
     tests/orbital_task_manager_test.cpp
     tests/test_radiation_hardening.cpp
@@ -135,6 +161,11 @@ target_compile_features(skymesh_core_tests PRIVATE cxx_std_17)
 target_include_directories(skymesh_core_tests
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_BINARY_DIR}  # For our test_utils.h
+    # Use the fetched Google Test directories with higher priority
+    ${googletest_SOURCE_DIR}/googletest/include
+    ${googletest_SOURCE_DIR}/googlemock/include
+    # Fallback to standard locations
     ${gtest_SOURCE_DIR}/include
     ${gmock_SOURCE_DIR}/include
 )
@@ -144,17 +175,37 @@ target_compile_definitions(skymesh_core_tests
     PRIVATE
     GTEST_HAS_STD_TUPLE=1
     GTEST_USE_OWN_TR1_TUPLE=0
+    GTEST_LANG_CXX11=1
+    GTEST_HAS_TR1_TUPLE=0
+    # Disable problematic GMock features that may cause issues with C++17
+    GMOCK_MOCK_MISMATCH_AT_COMPILE_TIME=0 
+)
+
+# If using Clang, add extra flags to ensure proper C++17 support
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang")
+    target_compile_options(skymesh_core_tests PRIVATE
+        -Wno-deprecated-declarations
+        -Wno-deprecated-register
+        -Wno-unused-macros
+        -Wno-missing-field-initializers
+    )
+endif()
+
+# Include our compatibility header in the test files
+target_compile_options(skymesh_core_tests PRIVATE
+    "-include${CMAKE_CURRENT_BINARY_DIR}/test_utils.h"
 )
 
 # Link test executable with Google Test and our core library
 target_link_libraries(skymesh_core_tests
     PRIVATE 
     skymesh_core
-    GTest::gtest
-    GTest::gtest_main
-    GTest::gmock
-    GTest::gmock_main
+    gtest
+    gtest_main
+    gmock
+    gmock_main
     Threads::Threads
+)
 )
 
 # Register tests with CTest

@@ -59,7 +59,6 @@ endif()
 add_library(GTest::gtest STATIC IMPORTED)
 
 set_target_properties(GTest::gtest PROPERTIES
-  INTERFACE_COMPILE_FEATURES "cxx_std_11"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
   INTERFACE_LINK_LIBRARIES "Threads::Threads"
   INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
@@ -69,7 +68,6 @@ set_target_properties(GTest::gtest PROPERTIES
 add_library(GTest::gtest_main STATIC IMPORTED)
 
 set_target_properties(GTest::gtest_main PROPERTIES
-  INTERFACE_COMPILE_FEATURES "cxx_std_11"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
   INTERFACE_LINK_LIBRARIES "Threads::Threads;GTest::gtest"
   INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
@@ -79,7 +77,6 @@ set_target_properties(GTest::gtest_main PROPERTIES
 add_library(GTest::gmock STATIC IMPORTED)
 
 set_target_properties(GTest::gmock PROPERTIES
-  INTERFACE_COMPILE_FEATURES "cxx_std_11"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
   INTERFACE_LINK_LIBRARIES "Threads::Threads;GTest::gtest"
   INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
@@ -89,7 +86,6 @@ set_target_properties(GTest::gmock PROPERTIES
 add_library(GTest::gmock_main STATIC IMPORTED)
 
 set_target_properties(GTest::gmock_main PROPERTIES
-  INTERFACE_COMPILE_FEATURES "cxx_std_11"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
   INTERFACE_LINK_LIBRARIES "Threads::Threads;GTest::gmock"
   INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"

@@ -207,7 +207,7 @@ Report issues using the GitHub issue tracker. Please include:
 - Launch of initial test constellation
 - Ground station network setup
 
-See our [detailed roadmap](docs/roadmap.md) for more information.
+See our [detailed roadmap](docs/business/roadmap.md) for more information.
 
 ## Development Workflow
 

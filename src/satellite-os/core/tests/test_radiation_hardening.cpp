@@ -9,6 +9,7 @@
  * - System Resilience to SEUs (Single Event Upsets)
  */
 
+#include "test_utils.h"
 #include <gtest/gtest.h>
 #include <array>
 #include <algorithm>

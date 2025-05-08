@@ -6,5 +6,5 @@ CXX_DEFINES = -DGTEST_HAS_STD_TUPLE=1 -DGTEST_HAS_TR1_TUPLE=0 -DGTEST_USE_OWN_TR
 
 CXX_INCLUDES = -I/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/include -I/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-src/googlemock/include -I/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-src/googlemock -isystem /Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-src/googletest/include -isystem /Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-src/googletest
 
-CXX_FLAGS = -std=c++17  -DGTEST_HAS_PTHREAD=1  
+CXX_FLAGS = -std=c++11  -DGTEST_HAS_PTHREAD=1  
 

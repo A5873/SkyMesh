@@ -315,6 +315,9 @@ GIT_EXECUTABLE:FILEPATH=/usr/bin/git
 // may want to turn this OFF.)
 INSTALL_GTEST:BOOL=ON
 
+//Path to a program.
+PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
+
 //Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-build/googlemock
 
@@ -559,26 +562,16 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Details about finding Python
-FIND_PACKAGE_MESSAGE_DETAILS_Python:INTERNAL=[/usr/local/Frameworks/Python.framework/Versions/3.13/bin/python3.13][found components: Interpreter ][v3.13.3()]
+//Details about finding PythonInterp
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.16()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_EXECUTABLE
+PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
-//Compiler reason failure
-_Python_Compiler_REASON_FAILURE:INTERNAL=
-//Development reason failure
-_Python_Development_REASON_FAILURE:INTERNAL=
-//Path to a program.
-_Python_EXECUTABLE:INTERNAL=/usr/local/Frameworks/Python.framework/Versions/3.13/bin/python3.13
-//Python Properties
-_Python_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;3;64;32;<none>;cpython-313-darwin;abi3;/usr/local/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/lib/python3.13;/usr/local/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/lib/python3.13;/usr/local/lib/python3.13/site-packages;/usr/local/lib/python3.13/site-packages
-_Python_INTERPRETER_SIGNATURE:INTERNAL=a2df92daf4d43218f98ae003053962d6
-//NumPy reason failure
-_Python_NumPy_REASON_FAILURE:INTERNAL=
-cmake_package_name:INTERNAL=GTest
 generated_dir:INTERNAL=/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-build/googletest/generated
 //ADVANCED property for variable: gmock_build_tests
 gmock_build_tests-ADVANCED:INTERNAL=1

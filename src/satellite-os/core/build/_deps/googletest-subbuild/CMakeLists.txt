@@ -27,7 +27,7 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 
 include(ExternalProject)
 ExternalProject_Add(googletest-populate
-                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/google/googletest.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "release-1.11.0"
+                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/google/googletest.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "release-1.10.0"
                     SOURCE_DIR          "/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-src"
                     BINARY_DIR          "/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/_deps/googletest-build"
                     CONFIGURE_COMMAND   ""
