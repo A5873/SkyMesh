@@ -21,7 +21,8 @@
 #include "skymesh/core/power_manager.h"
 #include "skymesh/core/command_control.h"
 
-using namespace skymesh::core;
+namespace skymesh {
+namespace core {
 
 /**
  * Custom fixture for radiation hardening tests
@@ -82,26 +83,29 @@ protected:
     /**
      * @brief Simulate radiation hit on an object by corrupting its memory
      * 
-     * @param obj Pointer to object
-     * @param bitPositions Array of bit positions to flip
-     * @param numPositions Number of positions in the array
+     * @param pm Power manager instance
+     * @param memberName Name of the member to target
+     * @param offset Offset within the member (in bytes)
+     * @param numBitsToFlip Number of bits to flip
      */
-    template<typename T>
-    void simulateRadiationHit(T* obj, size_t offset, size_t numBitsToFlip = 1) {
-        // Get a byte pointer to the object
-        uint8_t* bytes = reinterpret_cast<uint8_t*>(obj);
-        
-        // Generate random bits to flip
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distr(0, 7); // Bit position in byte
-        
-        // Flip bits
-        for (size_t i = 0; i < numBitsToFlip; ++i) {
-            int bitPosition = distr(gen);
-            bytes[offset] ^= (1 << bitPosition);
+    void simulateRadiationHit(std::shared_ptr<PowerManager> pm, const char* memberName, size_t offset, size_t numBitsToFlip = 1) {
+        void* ptr = PowerManager::RadiationTestInterface::getInternalStatePtr(pm.get(), memberName);
+        if (ptr) {
+            uint8_t* bytes = reinterpret_cast<uint8_t*>(ptr);
+            
+            // Generate random bits to flip
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> distr(0, 7); // Bit position in byte
+            
+            // Flip bits
+            for (size_t i = 0; i < numBitsToFlip; ++i) {
+                int bitPosition = distr(gen);
+                bytes[offset] ^= (1 << bitPosition);
+            }
         }
     }
+
 
     std::shared_ptr<PowerManager> powerManager;
 };
@@ -110,7 +114,6 @@ protected:
  * TMR Tests
  */
 TEST_F(RadiationHardeningTest, TestTMRWithBooleanValues) {
-    // Test TMR with boolean values
     std::array<bool, 3> values = {true, true, false};
     
     // Use the TMR implementation from PowerManager
@@ -125,7 +128,7 @@ TEST_F(RadiationHardeningTest, TestTMRWithBooleanValues) {
     
     // Simulate radiation hit by directly corrupting one of the redundant states
     // This is a white-box test that knows about the implementation details
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 10, 1);
+    simulateRadiationHit(powerManager, "subsystemStates", 10, 1);
     
     // The system should still report correct state due to TMR
     EXPECT_TRUE(powerManager->isSubsystemEnabled(SubsystemID::RF_SYSTEM));
@@ -135,8 +138,8 @@ TEST_F(RadiationHardeningTest, TestTMRWithBooleanValues) {
     EXPECT_FALSE(powerManager->isSubsystemEnabled(SubsystemID::RF_SYSTEM));
     
     // Simulate radiation affecting two redundant copies
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 10, 1);
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 15, 1);
+    simulateRadiationHit(powerManager, "subsystemStates", 10, 1);
+    simulateRadiationHit(powerManager, "subsystemStates", 15, 1);
     
     // Scrubbing should fix the corrupted values
     powerManager->handleRadiationErrors();
@@ -152,7 +155,7 @@ TEST_F(RadiationHardeningTest, TestTMRWithEnumValues) {
     
     // Corrupt the power mode (simulate radiation hit)
     // This is a white-box test assuming knowledge of internal structure
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, currentMode), 1);
+    simulateRadiationHit(powerManager, "currentMode", 0, 1);
     
     // The corrupted value should be corrected by TMR
     powerManager->handleRadiationErrors();
@@ -163,7 +166,7 @@ TEST_F(RadiationHardeningTest, TestTMRWithEnumValues) {
     EXPECT_EQ(PowerMode::LOW_POWER, powerManager->getCurrentPowerMode());
     
     // Corrupt power mode again (more severely this time)
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, currentMode), 2);
+    simulateRadiationHit(powerManager, "currentMode", 0, 2);
     
     // Test radiation error handling - should correct the mode
     powerManager->handleRadiationErrors();
@@ -183,7 +186,7 @@ TEST_F(RadiationHardeningTest, TestTMRWithFloatingPointValues) {
     
     // Simulate radiation affecting subsystem power level
     // This targets the internal subsystemPowerLevels map
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemPowerLevels) + 20, 1);
+    simulateRadiationHit(powerManager, "subsystemPowerLevels", 20, 1);
     
     // Run power update which should detect and fix errors
     powerManager->update(1000); // 1 second update
@@ -211,9 +214,9 @@ TEST_F(RadiationHardeningTest, TestMemoryScrubbing) {
     EXPECT_TRUE(powerManager->isSubsystemEnabled(SubsystemID::ADCS));
     
     // Simulate multiple radiation hits
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 5, 1);
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemPowerLevels) + 10, 1);
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, currentMode), 1);
+    simulateRadiationHit(powerManager, "subsystemStates", 5, 1);
+    simulateRadiationHit(powerManager, "subsystemPowerLevels", 10, 1);
+    simulateRadiationHit(powerManager, "currentMode", 0, 1);
     
     // Apply scrubbing (this is public in PowerManager)
     powerManager->handleRadiationErrors();
@@ -226,7 +229,7 @@ TEST_F(RadiationHardeningTest, TestMemoryScrubbing) {
     // Test more severe corruption
     // Simulate a burst of radiation affecting multiple memory locations
     for (int i = 0; i < 5; i++) {
-        simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + i*5, 2);
+        simulateRadiationHit(powerManager, "subsystemStates", i*5, 2);
     }
     
     // Run health check which includes scrubbing
@@ -246,7 +249,7 @@ TEST_F(RadiationHardeningTest, TestErrorDetection) {
     
     // Corrupt RF system state - we'll simulate this by trying to 
     // directly manipulate the subsystem state map with bit flips
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 8, 1);
+    simulateRadiationHit(powerManager, "subsystemStates", 8, 1);
     
     // Run radiation error handler which should detect the inconsistency
     bool errorsDetected = powerManager->handleRadiationErrors();
@@ -269,10 +272,12 @@ TEST_F(RadiationHardeningTest, TestSystemResilience) {
     powerManager->enableSubsystem(SubsystemID::PAYLOAD, 0.7f);
     
     // Simulate passing through a radiation belt - multiple bit flips
+    const char* members[] = {"currentMode", "subsystemStates", "subsystemPowerLevels"};
     for (int i = 0; i < 10; i++) {
-        // Random memory locations throughout the power manager
-        size_t offset = rand() % 100; 
-        simulateRadiationHit(powerManager.get(), offset, 1);
+        // Randomly select which member to corrupt
+        size_t memberIndex = rand() % 3;
+        size_t offset = rand() % 20;  // Random offset within the member
+        simulateRadiationHit(powerManager, members[memberIndex], offset, 1);
     }
     
     // Run system update multiple times to simulate continuous operation
@@ -313,10 +318,18 @@ TEST_F(RadiationHardeningTest, TestIntegrationWithMultipleSubsystems) {
     powerManager->enableSubsystem(SubsystemID::ADCS, 0.7f);
     
     // Simulate radiation affecting various parts of the system
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, currentMode), 2);
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemStates) + 15, 1);
-    simulateRadiationHit(powerManager.get(), offsetof(PowerManager, subsystemPowerLevels) + 25, 2);
+    simulateRadiationHit(powerManager, "currentMode", 0, 2);
+    simulateRadiationHit(powerManager, "subsystemStates", 15, 1);
+    simulateRadiationHit(powerManager, "subsystemPowerLevels", 25, 2);
     
     // Update orbit power profile during radiation exposure
     powerManager->updateOrbitPowerProfile(5400, 3600); // 90 min orbit, 60 min in eclipse
+    
+    // Verify all systems are still functional after radiation hits
+    EXPECT_TRUE(powerManager->isSubsystemEnabled(SubsystemID::RF_SYSTEM));
+    EXPECT_TRUE(powerManager->isSubsystemEnabled(SubsystemID::OBC));
+    EXPECT_TRUE(powerManager->isSubsystemEnabled(SubsystemID::ADCS));
+}
 
+} // namespace core
+} // namespace skymesh

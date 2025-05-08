@@ -4,7 +4,15 @@
 
 # SkyMesh: Decentralized Orbital Mesh Network
 
-SkyMesh is a decentralized orbital mesh network composed of low-cost nanosatellites, enabling censorship-resistant global communications through a constellation of CubeSat-class devices in low Earth orbit.
+SkyMesh is a decentralized orbital mesh network composed of low-cost nano-satellites, each powered by radiation-tolerant single-board computers running a custom lightweight satellite OS. These CubeSat-class devices operate in low Earth orbit and act as dynamic uplink nodes, relays, and observers, forming an autonomous, reconfigurable communication layer in space.
+
+Paired with open-source ground gateways and uplink stations, SkyMesh enables:
+- Censorship-resistant data exchange
+- Emergency communication networks
+- Remote IoT relay capabilities
+- Decentralized internet fallback infrastructure
+
+Designed with modular hardware and a real-time-capable OS optimized for mesh networking and power efficiency, SkyMesh bridges the Earth and orbit with a peer-to-peer ethos—turning the sky into a sovereign digital space.
 
 ## Core Features
 
@@ -19,7 +27,7 @@ SkyMesh is a decentralized orbital mesh network composed of low-cost nanosatelli
 
 **Current Status**: Early Development / Prototype Phase
 
-SkyMesh is currently in the early development and prototype design phase. We are working on system architecture, simulation tools, and proof-of-concept implementations for the core components.
+SkyMesh is currently in the early development and prototype design phase. I am working on system architecture, simulation tools, and proof-of-concept implementations for the core components.
 
 ## Quick Start Guide
 
@@ -35,8 +43,8 @@ SkyMesh is currently in the early development and prototype design phase. We are
 
 ```bash
 # Clone the repository
-git clone https://github.com/A5873/skymesh.git
-cd skymesh
+git clone https://github.com/A5873/SkyMesh.git
+cd SkyMesh
 
 # Create build directory
 mkdir build && cd build
@@ -107,123 +115,11 @@ pip install numpy matplotlib pycubesat orbit-predictor
 
 ## Architecture Overview
 
-SkyMesh follows a layered architecture:
-
-1. **Hardware Abstraction Layer**: Interfaces with satellite hardware
-2. **Radiation-Tolerant Core OS**: RTOS with triple modular redundancy
-3. **Mesh Networking Stack**: Satellite-to-satellite communication protocols
-4. **Application Layer**: User-defined applications and services
-
-See the [full architecture documentation](docs/PROJECT.md) for detailed information.
-
-## Contribution Guidelines
-
-### Code Contributions
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature-name`
-5. Submit a pull request
-
-### Coding Standards
-
-- Follow the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
-- Use clang-format with the provided configuration
-- Ensure all tests pass before submitting PRs
-- Include documentation for new features
-
-### Issue Reporting
-
-Report issues using the GitHub issue tracker. Please include:
-
-- Detailed description of the issue
-- Steps to reproduce
-- Expected vs. actual behavior
-- Environment information
-
-## Project Roadmap
-
-### Phase 1: Foundation (Current)
-- System architecture design
-- Simulation framework
-- Core OS prototype
-
-### Phase 2: Ground Testing
-- Hardware communication modules
-- Radiation tolerance testing
-- Full mesh protocol implementation
-
-### Phase 3: Deployment
-- Prototype satellite construction
-- Launch of initial test constellation
-- Ground station network setup
-
-See our [detailed roadmap](docs/roadmap.md) for more information.
-
-## License
-
-SkyMesh is released under the [MIT License](LICENSE).
-
-# SkyMesh
-
-## Project Overview
-
-SkyMesh is a decentralized orbital mesh network composed of low-cost nano-satellites, each powered by radiation-tolerant single-board computers running a custom lightweight satellite OS. These CubeSat-class devices operate in low Earth orbit and act as dynamic uplink nodes, relays, and observers, forming an autonomous, reconfigurable communication layer in space.
-
-Paired with open-source ground gateways and uplink stations, SkyMesh enables:
-- Censorship-resistant data exchange
-- Emergency communication networks
-- Remote IoT relay capabilities
-- Decentralized internet fallback infrastructure
-
-Designed with modular hardware and a real-time-capable OS optimized for mesh networking and power efficiency, SkyMesh bridges the Earth and orbit with a peer-to-peer ethos—turning the sky into a sovereign digital space.
-
-## System Architecture
-
 The SkyMesh architecture consists of three main components:
 
 1. **Orbital Layer**: A constellation of CubeSat-class nanosatellites in low Earth orbit (LEO), forming a dynamic mesh network.
 2. **Ground Layer**: A network of ground stations and gateways that connect to the orbital layer.
-3. **Protocol Layer**: The software stack that enables communication between nodes across both layers.
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     ORBITAL LAYER                           │
-│                                                             │
-│    ★ Satellite     ☆ Satellite     ★ Satellite              │
-│        │               │               │                    │
-│        └───────────────┼───────────────┘                    │
-│                        │                                    │
-├────────────────────────┼────────────────────────────────────┤
-│                        │                                    │
-│                 PROTOCOL LAYER                              │
-│      (Mesh Networking, Data Routing, Security)              │
-│                        │                                    │
-├────────────────────────┼────────────────────────────────────┤
-│                        │                                    │
-│                   GROUND LAYER                              │
-│                        │                                    │
-│    ┌─────────┐    ┌────┴────┐    ┌─────────┐                │
-│    │ Gateway │    │ Gateway │    │ Gateway │                │
-│    └────┬────┘    └────┬────┘    └────┬────┘                │
-│         │              │              │                     │
-│    ┌────┴──────────────┴──────────────┴────┐                │
-│    │                                       │                │
-│    │  End Users / IoT Devices / Services   │                │
-│    └───────────────────────────────────────┘                │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Communication Flow
-
-1. Data from ground users or devices is transmitted to the nearest gateway
-2. Gateways uplink data to visible satellites
-3. Satellites route data through the mesh network
-4. Data is delivered to destination gateway(s)
-5. Gateway delivers data to end recipients
-
-The mesh topology allows for dynamic routing, providing resilience against node failures and optimizing for latency and power efficiency.
+3. **Protocol Layer**: The software stSee the [full architecture documentation](docs/PROJECT.md) for detailed information.
 
 ## Key Components
 
@@ -267,41 +163,53 @@ The hardware designs focus on:
 - Solar panel integration
 - Open standardized interfaces
 
-## Development Setup
+## Contribution Guidelines
 
-### Prerequisites
+### Code Contributions
 
-- Modern Linux distribution or macOS
-- GNU Radio (for ground station development)
-- Embedded development toolchain
-- Rust and C/C++ compilers
-- Docker for containerized testing
-- Software Defined Radio (SDR) hardware (for testing)
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request
 
-### Getting Started
+### Coding Standards
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/A5873/skymesh.git
-   cd skymesh
-   ```
+- Follow the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+- Use clang-format with the provided configuration
+- Ensure all tests pass before submitting PRs
+- Include documentation for new features
 
-2. Install dependencies:
-   ```
-   ./scripts/setup.sh
-   ```
+### Issue Reporting
 
-3. Build the components:
-   ```
-   make all
-   ```
+Report issues using the GitHub issue tracker. Please include:
 
-4. Run tests:
-   ```
-   make test
-   ```
+- Detailed description of the issue
+- Steps to reproduce
+- Expected vs. actual behavior
+- Environment information
 
-### Development Workflow
+
+## Project Roadmap
+
+### Phase 1: Foundation (Current)
+- System architecture design
+- Simulation framework
+- Core OS prototype
+
+### Phase 2: Ground Testing
+- Hardware communication modules
+- Radiation tolerance testing
+- Full mesh protocol implementation
+
+### Phase 3: Deployment
+- Prototype satellite construction
+- Launch of initial test constellation
+- Ground station network setup
+
+See our [detailed roadmap](docs/roadmap.md) for more information.
+
+## Development Workflow
 
 The project uses a branching model:
 - `main` branch for stable releases
@@ -312,42 +220,6 @@ Each component can be developed and tested independently:
 - Satellite OS can be tested in simulation
 - Mesh protocols can be verified in virtual networks
 - Ground station software can interface with test devices
-
-## Contributing Guidelines
-
-We welcome contributions from the community! Here's how you can help:
-
-### Code Contributions
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Standards
-
-- Follow the coding style guidelines in each subdirectory
-- Write unit tests for new features
-- Update documentation for significant changes
-- Ensure your code passes CI/CD checks
-
-### Areas to Contribute
-
-- Satellite OS optimizations
-- Mesh routing algorithms
-- Ground station improvements
-- Hardware designs
-- Documentation and examples
-- Testing tools and frameworks
-
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0 - see the LICENSE file for details.
-
-## Contact
-
-- Project Mailing List: community@skymesh.org
-- Development Chat: [Matrix Room](https://matrix.to/#/#skymesh:matrix.org)
-- Issue Tracker: [GitHub Issues](https://github.com/skymesh/skymesh/issues)
 

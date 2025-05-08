@@ -7,8 +7,7 @@
  * component status management.
  */
 
-#ifndef SKYMESH_HEALTH_MONITOR_H
-#define SKYMESH_HEALTH_MONITOR_H
+#pragma once
 
 #include <chrono>
 #include <cstdint>
@@ -17,6 +16,8 @@
 #include <functional>
 #include <memory>
 #include <map>
+#include <mutex>
+#include <thread>
 
 namespace skymesh {
 namespace core {
@@ -195,5 +196,4 @@ std::unique_ptr<HealthMonitor> createHealthMonitor(const std::string& config_pat
 } // namespace core
 } // namespace skymesh
 
-#endif // SKYMESH_HEALTH_MONITOR_H
 

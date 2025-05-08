@@ -1,0 +1,5 @@
+if(EXISTS "/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/skymesh_core_tests[1]_tests.cmake")
+  include("/Users/alex/devving/code-lobo/PROJECTS/SkyMesh/src/satellite-os/core/build/skymesh_core_tests[1]_tests.cmake")
+else()
+  add_test(skymesh_core_tests_NOT_BUILT skymesh_core_tests_NOT_BUILT)
+endif()

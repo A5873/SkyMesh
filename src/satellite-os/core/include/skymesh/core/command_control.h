@@ -33,6 +33,19 @@ namespace skymesh {
 namespace core {
 
 /**
+ * @brief System operating modes
+ * 
+ * Defines the different operating modes of the satellite system
+ */
+enum class SystemMode {
+    NORMAL = 0,      ///< Normal operation mode
+    LOW_POWER = 1,   ///< Low power conservation mode
+    SAFE = 2,        ///< Safe mode (limited operations, focus on system integrity)
+    MAINTENANCE = 3, ///< System maintenance mode
+    EMERGENCY = 4,   ///< Emergency operations mode
+    RECOVERY = 5     ///< System recovery mode
+};
+/**
  * @brief Command priority levels
  * 
  * Defines priority levels for command execution with safety considerations

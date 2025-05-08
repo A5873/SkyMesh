@@ -20,13 +20,13 @@
 #include <memory>
 #include <atomic>
 #include <chrono>
+#include <unordered_map>
+#include <cstring> // for strcmp
 
 namespace skymesh {
 namespace core {
-
 // Forward declarations
 class RFController;
-
 /**
  * @enum PowerMode
  * @brief Power modes for the satellite
@@ -110,6 +110,20 @@ struct PowerBudget {
  * Radiation-hardened design with redundancy and error detection/correction.
  */
 class PowerManager {
+    // Allow radiation testing class full access to test hardening features
+    friend class RadiationHardeningTest;
+
+protected:
+    // Protected interface for radiation testing
+    struct RadiationTestInterface {
+        static void* getInternalStatePtr(PowerManager* pm, const char* memberName) {
+            if (strcmp(memberName, "currentMode") == 0) return &pm->currentMode;
+            if (strcmp(memberName, "subsystemStates") == 0) return &pm->subsystemStates;
+            if (strcmp(memberName, "subsystemPowerLevels") == 0) return &pm->subsystemPowerLevels;
+            return nullptr;
+        }
+    };
+
 public:
     /**
      * @brief Constructor

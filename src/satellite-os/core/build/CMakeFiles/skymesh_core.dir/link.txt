@@ -1,0 +1,2 @@
+/usr/bin/ar qc libskymesh_core.a CMakeFiles/skymesh_core.dir/src/orbital_task_manager.cpp.o CMakeFiles/skymesh_core.dir/src/health_monitor.cpp.o CMakeFiles/skymesh_core.dir/src/power_manager.cpp.o
+/usr/bin/ranlib libskymesh_core.a
